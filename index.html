@@ -1,150 +1,89 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Zikirmatik</title>
-  <style>
-    :root {
-      --bg: #f4f4f4;
-      --text: #222;
-      --primary: #2ecc71;
-      --button: #27ae60;
-    }
-    body.dark {
-      --bg: #0f172a;
-      --text: #e5e7eb;
-      --primary: #38bdf8;
-      --button: #0ea5e9;
-    }
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      transition: 0.3s;
-    }
-    .app {
-      background: rgba(255,255,255,0.9);
-      padding: 24px;
-      border-radius: 24px;
-      width: 100%;
-      max-width: 320px;
-      text-align: center;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-    }
-    body.dark .app {
-      background: rgba(15,23,42,0.9);
-    }
-    h1 {
-      margin: 0 0 12px;
-      font-size: 22px;
-    }
-    .zikirmatik {
-      width: 200px;
-      height: 200px;
-      margin: 20px auto;
-      border-radius: 50%;
-      background: var(--primary);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 48px;
-      font-weight: bold;
-      color: #fff;
-      user-select: none;
-    }
-    button {
-      width: 100%;
-      padding: 14px;
-      margin-top: 10px;
-      border: none;
-      border-radius: 14px;
-      background: var(--button);
-      color: #fff;
-      font-size: 16px;
-    }
-    .row {
-      display: flex;
-      gap: 8px;
-    }
-    .row button {
-      flex: 1;
-    }
-    .controls {
-      margin-top: 16px;
-      font-size: 14px;
-    }
-    select {
-      width: 100%;
-      margin-top: 8px;
-      padding: 8px;
-      border-radius: 10px;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Zikirmatik</title>
+<style>
+:root{
+ --bg:#f4f4f4; --text:#222; --primary:#2ecc71; --button:#27ae60;
+}
+body.dark{ --bg:#0f172a; --text:#e5e7eb; --primary:#38bdf8; --button:#0ea5e9; }
+body{
+      touch-action: manipulation;
+ margin:0; font-family:-apple-system,BlinkMacSystemFont; background:var(--bg); color:var(--text);
+ display:flex; align-items:center; justify-content:center; min-height:100vh; transition:.3s;
+}
+.app{
+ background:rgba(255,255,255,.92); padding:24px; border-radius:28px; width:320px; text-align:center;
+ box-shadow:0 25px 45px rgba(0,0,0,.18);
+}
+body.dark .app{background:rgba(15,23,42,.92)}
+h1{margin:0 0 6px; font-size:22px}
+.subtitle{font-size:13px; opacity:.7}
+.zikir-body{
+ width:220px; height:220px; margin:18px auto; border-radius:50%;
+ background:radial-gradient(circle at top,#fff,var(--primary));
+ box-shadow:inset 0 8px 12px rgba(255,255,255,.6), inset 0 -8px 12px rgba(0,0,0,.25), 0 12px 25px rgba(0,0,0,.3);
+ display:flex; align-items:center; justify-content:center;
+}
+.display{
+ width:120px; height:70px; border-radius:14px; background:#000; color:#0f0;
+ display:flex; align-items:center; justify-content:center; font-size:36px; font-weight:bold;
+ box-shadow:inset 0 0 8px rgba(0,255,0,.6);
+}
+.tas{
+ width:34px; height:34px; border-radius:50%; background:linear-gradient(145deg,#fff,#ddd);
+ position:absolute; box-shadow:0 4px 8px rgba(0,0,0,.3);
+}
+.t1{top:8px; left:40px}
+.t2{top:8px; right:40px}
+.t3{bottom:8px; left:40px}
+.t4{bottom:8px; right:40px}
+button{
+ width:100%; padding:14px; border:none; border-radius:16px; background:var(--button); color:#fff;
+ font-size:16px; margin-top:10px;
+}
+.row{display:flex; gap:8px}
+.row button{flex:1}
+select{width:100%; margin-top:8px; padding:8px; border-radius:10px}
+</style>
 </head>
 <body>
-  <div class="app">
-    <h1>📿 Beyza</h1>
-    <div class="zikirmatik" id="counter">0</div>
+<div class="app">
+<h1>📿 Beyza</h1>
+<div class="subtitle">Zikirmatik</div>
 
-    <button onclick="increment()">Zikir Çek</button>
+<div class="zikir-body" onclick="increment()">
+ <div class="tas t1"></div><div class="tas t2"></div><div class="tas t3"></div><div class="tas t4"></div>
+ <div class="display" id="counter">0</div>
+</div>
 
-    <div class="row">
-      <button onclick="reset()">Sıfırla</button>
-      <button onclick="toggleDark()">Dark / Light</button>
-    </div>
+<button onclick="increment()">Zikir Çek</button>
+<div class="row">
+ <button onclick="reset()">Sıfırla</button>
+ <button onclick="toggleDark()">🌙</button>
+</div>
 
-    <div class="controls">
-      <label>Zikirmatik Rengi</label>
-      <select onchange="changeColor(this.value)">
-        <option value="#2ecc71">Yeşil</option>
-        <option value="#e84393">Pembe</option>
-        <option value="#0984e3">Mavi</option>
-        <option value="#f39c12">Turuncu</option>
-        <option value="#8e44ad">Mor</option>
-      </select>
-    </div>
-  </div>
+<label>🎨 Renk</label>
+<select onchange="changeColor(this.value)">
+ <option value="#2ecc71">Yeşil</option>
+ <option value="#e84393">Pembe</option>
+ <option value="#0984e3">Mavi</option>
+ <option value="#f39c12">Altın</option>
+ <option value="#8e44ad">Mor</option>
+</select>
+</div>
 
-  <script>
-    let count = Number(localStorage.getItem('count')) || 0;
-    const counter = document.getElementById('counter');
-    counter.textContent = count;
-
-    function increment() {
-      count++;
-      counter.textContent = count;
-      localStorage.setItem('count', count);
-    }
-
-    function reset() {
-      count = 0;
-      counter.textContent = 0;
-      localStorage.setItem('count', 0);
-    }
-
-    function toggleDark() {
-      document.body.classList.toggle('dark');
-      localStorage.setItem('dark', document.body.classList.contains('dark'));
-    }
-
-    function changeColor(color) {
-      document.documentElement.style.setProperty('--primary', color);
-      document.documentElement.style.setProperty('--button', color);
-      localStorage.setItem('color', color);
-    }
-
-    if (localStorage.getItem('dark') === 'true') {
-      document.body.classList.add('dark');
-    }
-
-    const savedColor = localStorage.getItem('color');
-    if (savedColor) changeColor(savedColor);
-  </script>
+<script>
+let count=Number(localStorage.getItem('count'))||0;
+const counter=document.getElementById('counter'); counter.textContent=count;
+function increment(){count++;counter.textContent=count;localStorage.setItem('count',count); if(navigator.vibrate) navigator.vibrate(40);}
+function reset(){count=0;counter.textContent=0;localStorage.setItem('count',0);}
+function toggleDark(){document.body.classList.toggle('dark');localStorage.setItem('dark',document.body.classList.contains('dark'));}
+function changeColor(c){document.documentElement.style.setProperty('--primary',c);document.documentElement.style.setProperty('--button',c);localStorage.setItem('color',c);}
+if(localStorage.getItem('dark')==='true')document.body.classList.add('dark');
+const sc=localStorage.getItem('color'); if(sc)changeColor(sc);
+</script>
 </body>
 </html>
