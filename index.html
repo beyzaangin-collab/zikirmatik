@@ -61,17 +61,47 @@ h2{font-size:13px;font-weight:400;opacity:.7;margin-top:0}
 
 /* ZİKİRMATİK – DİJİTAL SAAT GİBİ (ESKİ HAL) */
 .zikirmatik{
-  width:185px;
-  height:250px;
-  border-radius:48px;
-  padding:16px;
-  background:linear-gradient(180deg,rgba(255,255,255,.25),rgba(0,0,0,.25)), #2e8b57;
+  width:205px;
+  height:275px;
+  border-radius:52px;
+  padding:18px;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.35),rgba(255,255,255,.05) 40%,rgba(0,0,0,.15)),
+    #7fbf9f;
   box-shadow:
-    inset 0 8px 10px rgba(255,255,255,.25),
-    inset 0 -10px 14px rgba(0,0,0,.5),
-    0 14px 26px rgba(0,0,0,.35);
+    inset 0 10px 14px rgba(255,255,255,.45),
+    inset 0 -12px 18px rgba(0,0,0,.35),
+    0 18px 30px rgba(0,0,0,.35);
   margin:auto;
-  transition:.3s;
+  transition:.35s;
+}
+
+.screen{
+  background:radial-gradient(circle at top,#1a1a1a,#000);
+  color:#6dffbf;
+  font-family:'Courier New',monospace;
+  font-size:32px;
+  padding:14px 0;
+  border-radius:24px;
+  margin:20px 0 26px;
+  letter-spacing:2px;
+  box-shadow:
+    inset 0 0 14px rgba(0,0,0,.85),
+    0 0 10px rgba(109,255,191,.45);
+}
+
+.btn{
+  width:96px;
+  height:96px;
+  border-radius:50%;
+  border:none;
+  font-size:15px;
+  background:radial-gradient(circle at top,#2b2b2b,#000);
+  color:#fff;
+  box-shadow:
+    inset 0 6px 10px rgba(255,255,255,.18),
+    inset 0 -12px 16px rgba(0,0,0,.75),
+    0 10px 16px rgba(0,0,0,.6);
 }
 
 .screen{
@@ -149,7 +179,7 @@ h2{font-size:13px;font-weight:400;opacity:.7;margin-top:0}
 <button class="esma-toggle" onclick="toggleEsma()">☰</button>
 
 <div class="esma-panel" id="esmaPanel">
-  <h3>Esmaül Hüsna</h3>
+  <h3><div class="header"><button class="menu-btn">☰</button><h1>Esmaül Hüsna</h1></div></h3>
 
   <div class="esma-item" onclick="selectEsma('rahman','Ya Rahman','Çok merhamet eden')">
     <strong>Ya Rahman</strong>
@@ -220,7 +250,21 @@ function increment(){
 }
 
 function setColor(c){
-  document.getElementById("zikirmatik").style.background = c;
+  const z = document.getElementById("zikirmatik");
+  const isDark = document.body.classList.contains("dark");
+
+  // soft renkler için koyulaştırılmış dark versiyon
+  if(isDark){
+    z.style.background = `linear-gradient(180deg,rgba(255,255,255,.15),rgba(0,0,0,.35)), ${shadeColor(c,-35)}`;
+  } else {
+    z.style.background = `linear-gradient(180deg,rgba(255,255,255,.35),rgba(255,255,255,.05) 40%,rgba(0,0,0,.15)), ${c}`;
+  }
+}
+
+function shadeColor(color, percent) {
+  let f=parseInt(color.slice(1),16),t=percent<0?0:255,p=Math.abs(percent)/100;
+  let R=f>>16,G=f>>8&0x00FF,B=f&0x0000FF;
+  return "#"+(0x1000000+(Math.round((t-R)*p)+R)*0x10000+(Math.round((t-G)*p)+G)*0x100+(Math.round((t-B)*p)+B)).toString(16).slice(1);
 }
 
 function toggleDark(){
