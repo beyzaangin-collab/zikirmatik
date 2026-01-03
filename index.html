@@ -8,15 +8,20 @@
 <style>
 :root{
   --accent: #ff85ba;
-  --glass: rgba(255, 255, 255, 0.25);
+  --glass: rgba(255, 255, 255, 0.2);
   --glass-heavy: rgba(255, 255, 255, 0.6);
   --text: #2c3e50;
   --bg-gradient: linear-gradient(135deg, #fce4ec 0%, #e1f5fe 100%);
 }
 
+/* Renk Temaları */
+body.theme-blue { --accent: #4facfe; --bg-gradient: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%); }
+body.theme-green { --accent: #00b894; --bg-gradient: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%); }
+body.theme-orange { --accent: #e17055; --bg-gradient: linear-gradient(135deg, #fff3e0 0%, #fbe9e7 100%); }
+
 body.dark{
   --glass: rgba(0, 0, 0, 0.4);
-  --glass-heavy: rgba(20, 20, 20, 0.8);
+  --glass-heavy: rgba(20, 20, 20, 0.9);
   --text: #ffffff;
   --bg-gradient: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
 }
@@ -25,7 +30,6 @@ body.dark{
   box-sizing:border-box;
   user-select:none;
   -webkit-tap-highlight-color:transparent;
-  /* Hızlı tıklamalarda zoom yapmayı engeller */
   touch-action: manipulation;
 }
 
@@ -37,142 +41,154 @@ body{
   color: var(--text);
   height: 100vh;
   overflow: hidden;
+  transition: 0.5s;
+}
+
+/* HAMBURGER VE ÜST PANEL SABİTLEME */
+.top-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  z-index: 2000; /* Sidebar'ın bile üzerinde */
+}
+
+.menu-btn, .theme-btn {
+  font-size: 28px;
+  background: var(--glass);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.3);
+  width: 45px;
+  height: 45px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text);
 }
 
 /* SIDEBAR */
 .sidebar{
   position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 280px;
+  top: 0; left: 0; height: 100%; width: 280px;
   background: var(--glass);
-  backdrop-filter: blur(25px);
-  -webkit-backdrop-filter: blur(25px);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
   border-right: 1px solid rgba(255,255,255,0.2);
   transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 1000;
+  z-index: 1500;
   display: flex;
   flex-direction: column;
 }
 
 .sidebar.closed{ transform: translateX(-100%); }
 
-/* Liste kaydırma alanı */
 .sidebar-scroll{
   flex: 1;
   overflow-y: auto;
-  padding: 70px 15px 160px 15px; /* Alt kısımdaki inputa yer açmak için 160px boşluk */
+  padding: 90px 15px 160px 15px; /* Hamburger butonu altında kalmasın diye üstten 90px */
 }
 
-/* EKLEME PANELİ (TAM SABİT) */
 .fixed-add{
   position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
+  bottom: 0; left: 0; width: 100%;
   padding: 20px;
   background: var(--glass-heavy);
   backdrop-filter: blur(15px);
   border-top: 1px solid rgba(255,255,255,0.2);
-  z-index: 1001;
 }
 
 .fixed-add input{
-  width: 100%;
-  padding: 12px;
-  border-radius: 12px;
-  border: 1px solid rgba(0,0,0,0.1);
-  background: rgba(255,255,255,0.8);
-  margin-bottom: 10px;
-  outline: none;
-  font-size: 16px; /* 16px altı inputlarda iPhone zoom yapar, o yüzden 16px */
-  color: #000;
+  width: 100%; padding: 12px; border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.1); background: rgba(255,255,255,0.8);
+  margin-bottom: 10px; font-size: 16px; outline: none;
 }
 
 .add-btn {
-  width: 100%;
-  background: var(--accent);
-  color: white;
-  padding: 12px;
-  border-radius: 12px;
-  border: none;
-  font-weight: bold;
-  box-shadow: 0 4px 15px rgba(255, 133, 186, 0.3);
+  width: 100%; background: var(--accent); color: white;
+  padding: 12px; border-radius: 12px; border: none; font-weight: bold;
 }
 
 /* OVERLAY */
 .overlay {
-  position: fixed;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0,0,0,0.3);
-  display: none;
-  z-index: 900;
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.3); display: none; z-index: 1400;
 }
 .sidebar:not(.closed) ~ .overlay { display: block; }
 
-/* MAIN AREA */
+/* ANA ALAN VE YUVARLAK TASARIM */
 .main{
-  width: 100%;
-  height: 100%;
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 20px;
+}
+
+.counter-outer {
+  width: 300px;
+  height: 300px;
+  background: var(--glass);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255,255,255,0.4);
+  border-radius: 50%; /* Tam yuvarlak */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px;
-}
-
-.counter-glass {
-  background: var(--glass);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  border: 1px solid rgba(255,255,255,0.3);
-  border-radius: 50px;
-  padding: 40px;
-  width: 100%;
-  max-width: 300px;
-  text-align: center;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.1);
+  position: relative;
 }
 
 .count {
-  font-size: 80px;
+  font-size: 70px;
   font-weight: 800;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  color: var(--text);
 }
 
 .zikir-btn {
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%; /* Tam yuvarlak iç buton */
   background: var(--accent);
   border: 8px solid rgba(255,255,255,0.3);
   font-size: 45px;
   color: white;
   transition: 0.1s;
-  box-shadow: 0 10px 30px rgba(255, 133, 186, 0.4);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  cursor: pointer;
 }
 
-.zikir-btn:active {
-  transform: scale(0.92);
+.zikir-btn:active { transform: scale(0.9); }
+
+/* Renk Seçici */
+.color-picker {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+.dot {
+  width: 25px; height: 25px; border-radius: 50%; border: 2px solid white; cursor: pointer;
 }
 
 .list-item {
-  padding: 14px;
-  background: rgba(255,255,255,0.15);
-  margin-bottom: 8px;
-  border-radius: 14px;
-  display: flex; justify-content: space-between; align-items: center;
-  border: 1px solid rgba(255,255,255,0.1);
-}
-
-.top {
-  position: absolute; top: 25px; left: 20px; right: 20px;
-  display: flex; justify-content: space-between; align-items: center;
+  padding: 14px; background: rgba(255,255,255,0.15);
+  margin-bottom: 8px; border-radius: 14px; display: flex; 
+  justify-content: space-between; border: 1px solid rgba(255,255,255,0.1);
 }
 </style>
 </head>
 <body>
+
+<div class="top-bar">
+  <div class="menu-btn" onclick="toggleMenu()">☰</div>
+  <div style="font-weight: 800; font-size: 20px;">Zikirmatik</div>
+  <div class="theme-btn" onclick="toggleDark()" id="tBtn">🌙</div>
+</div>
 
 <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
@@ -180,35 +196,34 @@ body{
   <div class="sidebar-scroll">
     <h3 style="opacity: 0.6; font-size: 11px; letter-spacing: 1.5px; margin-bottom: 15px;">ESMAÜL HÜSNA</h3>
     <div id="esmaList"></div>
-
     <h3 style="opacity: 0.6; font-size: 11px; letter-spacing: 1.5px; margin-top: 25px; margin-bottom: 15px;">ÖZEL ZİKİRLER</h3>
     <div id="customList"></div>
   </div>
-
   <div class="fixed-add">
-    <input id="customInput" type="text" placeholder="Yeni zikir adı..." autocomplete="off">
+    <input id="customInput" placeholder="Zikir adı...">
     <button class="add-btn" onclick="addCustom()">Listeye Ekle</button>
   </div>
 </div>
 
 <div class="main">
-  <div class="top">
-    <button onclick="toggleMenu()" style="font-size: 30px; background:none; border:none; color:var(--text);">☰</button>
-    <div style="font-weight: 800; font-size: 22px; letter-spacing: -1px;">Zikirmatik</div>
-    <button onclick="toggleDark()" id="tBtn" style="font-size: 30px; background:none; border:none; color:var(--text);">🌙</button>
-  </div>
-
-  <div style="text-align:center; margin-bottom:30px;">
-    <div id="selName" style="font-size: 28px; font-weight: 700; color: var(--accent);">📿 Genel Zikir</div>
+  <div style="text-align:center; margin-bottom:20px;">
+    <div id="selName" style="font-size: 26px; font-weight: 700; color: var(--accent);">📿 Genel Zikir</div>
     <div id="selMeaning" style="opacity: 0.6; font-size: 14px; margin-top:5px; height: 18px;"></div>
   </div>
 
-  <div class="counter-glass">
+  <div class="counter-outer">
     <div class="count" id="count">0</div>
     <button class="zikir-btn" onclick="inc()">🌸</button>
   </div>
 
-  <div style="margin-top: 40px; opacity: 0.5; font-weight: 600; cursor: pointer;" onclick="resetCount()">SAYACI SIFIRLA</div>
+  <div class="color-picker">
+    <div class="dot" style="background:#ff85ba" onclick="setTheme('')"></div>
+    <div class="dot" style="background:#4facfe" onclick="setTheme('theme-blue')"></div>
+    <div class="dot" style="background:#00b894" onclick="setTheme('theme-green')"></div>
+    <div class="dot" style="background:#e17055" onclick="setTheme('theme-orange')"></div>
+  </div>
+
+  <div style="margin-top: 30px; opacity: 0.4; font-size: 13px; cursor: pointer;" onclick="resetCount()">Sıfırla</div>
 </div>
 
 <script>
@@ -268,13 +283,13 @@ const esmalar = [
   {name:"Er-Reşid",meaning:"Doğru yola ileten"}, {name:"Es-Sabur",meaning:"Çok sabırlı"}
 ];
 
-function toggleMenu() {
-  document.getElementById("sidebar").classList.toggle("closed");
-}
-
-function toggleDark() {
+function toggleMenu() { document.getElementById("sidebar").classList.toggle("closed"); }
+function toggleDark() { 
   document.body.classList.toggle("dark");
   document.getElementById("tBtn").innerText = document.body.classList.contains("dark") ? "☀️" : "🌙";
+}
+function setTheme(t) {
+  document.body.className = document.body.classList.contains("dark") ? "dark " + t : t;
 }
 
 function save() {
@@ -282,9 +297,7 @@ function save() {
   localStorage.setItem("myCustomList", JSON.stringify(myCustomList));
 }
 
-function updateUI() {
-  document.getElementById("count").innerText = counters[currentZikir] || 0;
-}
+function updateUI() { document.getElementById("count").innerText = counters[currentZikir] || 0; }
 
 function selectZikir(name, meaning = "") {
   currentZikir = name;
@@ -302,11 +315,7 @@ function inc() {
 }
 
 function resetCount() {
-  if(confirm("Sayacı sıfırlamak istiyor musunuz?")) {
-    counters[currentZikir] = 0;
-    save();
-    updateUI();
-  }
+  if(confirm("Sıfırlansın mı?")) { counters[currentZikir] = 0; save(); updateUI(); }
 }
 
 function render() {
@@ -325,7 +334,7 @@ function render() {
   myCustomList.forEach((name, i) => {
     const d = document.createElement("div");
     d.className = "list-item";
-    d.innerHTML = `<span style="flex:1" onclick="selectZikir('${name}', 'Özel Zikir')">${name}</span><span style="padding:5px" onclick="deleteCustom(event, ${i})">✕</span>`;
+    d.innerHTML = `<span style="flex:1" onclick="selectZikir('${name}', 'Özel')">${name}</span><span onclick="deleteCustom(event, ${i})">✕</span>`;
     cList.appendChild(d);
   });
 }
@@ -335,25 +344,17 @@ function addCustom() {
   const val = inp.value.trim();
   if(val && !myCustomList.includes(val)) {
     myCustomList.push(val);
-    save();
-    render();
-    inp.value = "";
-    // Mobilde klavyeyi kapatmak için focus'u çek
-    inp.blur();
+    save(); render(); inp.value = "";
   }
 }
 
 function deleteCustom(e, i) {
   e.stopPropagation();
-  const name = myCustomList[i];
   myCustomList.splice(i, 1);
-  delete counters[name];
-  save();
-  render();
+  save(); render();
 }
 
-render();
-updateUI();
+render(); updateUI();
 </script>
 </body>
 </html>
