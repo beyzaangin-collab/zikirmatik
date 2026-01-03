@@ -34,11 +34,7 @@ body.dark{background:#0f0f0f;color:#fff}
 }
 body.dark .esma-panel{background:#1a1a1a}
 .esma-panel.open{left:0}
-.esma-item{
-  padding:10px 0;
-  border-bottom:1px solid rgba(0,0,0,.1);
-  cursor:pointer;
-}
+.esma-item{padding:10px 0;border-bottom:1px solid rgba(0,0,0,.1);cursor:pointer}
 body.dark .esma-item{border-color:rgba(255,255,255,.1)}
 .esma-item strong{display:block}
 .esma-item span{font-size:12px;opacity:.7}
@@ -56,65 +52,56 @@ body.dark .esma-item{border-color:rgba(255,255,255,.1)}
 /* APP */
 .app{text-align:center}
 
-h1{
-  font-size:18px;
-  margin-top:36px; /* aşağı alındı */
-  margin-bottom:4px;
-}
+h1{font-size:18px;margin-top:36px;margin-bottom:4px}
+h2{font-size:13px;font-weight:400;opacity:.7;margin-top:0}
 
-h2{
-  font-size:13px;
-  font-weight:400;
-  opacity:.7;
-  margin-top:0;
-}
-
-/* ZİKİRMATİK – ESKİ SADE TASARIM */
+/* ZİKİRMATİK – DİJİTAL SAAT GİBİ (ESKİ HAL) */
 .zikirmatik{
-  width:200px;
-  height:260px;
-  border-radius:50px;
-  padding:16px;
+  width:180px;
+  height:240px;
+  border-radius:46px;
+  padding:14px;
   background:#2e8b57;
   box-shadow:
-    inset 0 4px 6px rgba(255,255,255,.2),
-    inset 0 -6px 8px rgba(0,0,0,.4),
-    0 10px 20px rgba(0,0,0,.3);
+    inset 0 6px 8px rgba(255,255,255,.25),
+    inset 0 -8px 10px rgba(0,0,0,.45),
+    0 12px 22px rgba(0,0,0,.35);
   margin:auto;
   transition:.3s;
 }
 
+/* DİJİTAL SAAT EKRANI */
 .screen{
-  background:#000;
+  background:#0b0b0b;
   color:#00ff99;
-  font-size:32px;
-  padding:12px 0;
-  border-radius:14px;
-  margin:20px 0 24px;
-  box-shadow:inset 0 0 6px rgba(0,0,0,.6);
+  font-family:'Courier New',monospace;
+  font-size:30px;
+  padding:10px 0;
+  border-radius:20px;
+  margin:18px 0 22px;
+  letter-spacing:2px;
+  box-shadow:
+    inset 0 0 10px rgba(0,0,0,.8),
+    0 0 6px rgba(0,255,153,.4);
 }
 
+/* TEK YUVARLAK TUŞ */
 .btn{
-  width:90px;
-  height:90px;
+  width:88px;
+  height:88px;
   border-radius:50%;
   border:none;
-  font-size:16px;
+  font-size:15px;
   background:#111;
   color:#fff;
   box-shadow:
-    inset 0 4px 6px rgba(255,255,255,.1),
-    inset 0 -6px 8px rgba(0,0,0,.6);
+    inset 0 5px 8px rgba(255,255,255,.12),
+    inset 0 -8px 10px rgba(0,0,0,.7),
+    0 6px 12px rgba(0,0,0,.6);
 }
 
-/* COLORS */
 .colors{margin-top:16px}
-.color-btn{
-  width:22px;height:22px;
-  border-radius:50%;
-  border:none;
-  margin:0 4px;
-}
+.color-btn{width:22px;height:22px;border-radius:50%;border:none;margin:0 4px}
 .green{background:#2e8b57}
 .blue{background:#3498db}
 .pink{background:#ff5fa2}
