@@ -1,238 +1,273 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+
+<!-- ZOOM TAM KAPALI -->
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
 <title>Beyza Zikirmatik</title>
 
 <style>
 :root{
-  --bg:#f3b2c8;
-  --bg-dark:#3a2a33;
-  --device:#f7c6d6;
-  --screen:#000;
+  --accent:#f2a3c7;
+  --bg:#ffffff;
+  --card:#f7f7f7;
   --text:#222;
-  --accent:#5fd3a1;
+}
+
+body.dark{
+  --bg:#2a2430;
+  --card:#3a3142;
+  --text:#fff;
+}
+
+*{
+  box-sizing:border-box;
+  user-select:none;
+  -webkit-tap-highlight-color:transparent;
 }
 
 body{
   margin:0;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-family:-apple-system, BlinkMacSystemFont, "SF Pro";
   background:var(--bg);
   color:var(--text);
-  transition:.3s;
+  display:flex;
+  height:100vh;
+  overscroll-behavior:contain;
+  touch-action:manipulation;
 }
 
-body.dark{
-  background:var(--bg-dark);
-  color:#f2f2f2;
+/* SIDEBAR */
+.sidebar{
+  width:240px;
+  background:var(--card);
+  padding:14px;
+  overflow-y:auto;
 }
 
-header{
-  padding:18px;
-  font-size:28px;
-  font-weight:700;
-  text-align:center;
+.sidebar h3{
+  margin:8px 0;
+  font-size:14px;
+  opacity:.7;
 }
 
-.menu{
-  position:fixed;
-  top:20px;
-  left:20px;
-  font-size:26px;
+.list-item{
+  padding:10px;
+  border-radius:12px;
+  margin-bottom:6px;
   cursor:pointer;
-  z-index:10;
+  font-size:14px;
 }
 
-aside{
-  position:fixed;
-  left:-280px;
-  top:0;
-  width:260px;
-  height:100%;
-  background:#fff;
-  padding:20px;
-  overflow:auto;
-  transition:.3s;
-  z-index:9;
+.list-item:hover{
+  background:rgba(0,0,0,.05);
 }
-body.dark aside{background:#2a1f26;color:#fff}
-aside.open{left:0}
 
-aside h3{margin-top:40px}
-
-aside .item{
-  padding:10px 0;
-  border-bottom:1px solid #ddd;
-  cursor:pointer;
+body.dark .list-item:hover{
+  background:rgba(255,255,255,.1);
 }
-aside small{opacity:.7}
 
+/* MAIN */
 .main{
+  flex:1;
   display:flex;
   flex-direction:column;
   align-items:center;
-  gap:14px;
-}
-
-.esma{
-  text-align:center;
-}
-.esma h2{margin:0}
-.esma p{margin:4px 0 0;font-size:14px;opacity:.7}
-
-.device{
-  width:260px;
-  height:360px;
-  background:var(--device);
-  border-radius:36px;
-  box-shadow:
-    inset 0 6px 10px rgba(255,255,255,.6),
-    inset 0 -6px 12px rgba(0,0,0,.2),
-    0 25px 40px rgba(0,0,0,.35);
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:space-between;
-  padding:22px 0 30px;
+  justify-content:center;
+  padding:20px;
   position:relative;
 }
 
-.screen{
-  width:150px;
-  height:60px;
-  background:var(--screen);
-  border-radius:16px;
-  color:var(--accent);
-  font-size:34px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.button{
-  width:100px;
-  height:100px;
-  border-radius:50%;
-  background:radial-gradient(circle at top,#666,#111);
-  color:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:20px;
-  cursor:pointer;
-  user-select:none;
-}
-
-.tespih{
+/* HEADER */
+.top{
   position:absolute;
-  bottom:8px;
-  font-size:22px;
-  opacity:.5;
-}
-
-.colors{
+  top:15px;
+  left:20px;
+  right:20px;
   display:flex;
-  gap:12px;
-}
-.color{
-  width:18px;height:18px;border-radius:50%;cursor:pointer
+  justify-content:space-between;
+  align-items:center;
 }
 
-.toggle{
-  margin-top:8px;
-  padding:6px 14px;
-  border-radius:14px;
-  background:#fff;
-  font-size:13px;
+.brand{
+  font-weight:600;
+  font-size:18px;
+}
+
+button{
+  background:none;
+  border:none;
+  color:var(--text);
+  font-size:16px;
   cursor:pointer;
 }
-body.dark .toggle{background:#444}
 
+/* SELECTED ESMA */
+.selected{
+  text-align:center;
+  margin-bottom:20px;
+}
+
+.selected .name{
+  font-size:20px;
+  font-weight:600;
+}
+
+.selected .meaning{
+  font-size:13px;
+  opacity:.7;
+  margin-top:4px;
+}
+
+/* ZIKIRMATIK */
+.counter-wrap{
+  background:linear-gradient(145deg,
+    rgba(255,255,255,.35),
+    rgba(255,255,255,.05));
+  backdrop-filter:blur(10px);
+  border-radius:50%;
+  width:240px;
+  height:240px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  box-shadow:
+    inset 0 0 25px rgba(255,255,255,.5),
+    0 15px 40px rgba(0,0,0,.2);
+}
+
+.count{
+  font-size:48px;
+  font-weight:700;
+  margin-bottom:10px;
+}
+
+.zikir-btn{
+  width:110px;
+  height:110px;
+  border-radius:50%;
+  background:radial-gradient(circle,
+    var(--accent),
+    rgba(0,0,0,.25));
+  box-shadow:
+    0 8px 20px rgba(0,0,0,.3),
+    inset 0 0 15px rgba(255,255,255,.6);
+  border:none;
+  font-size:26px;
+  color:white;
+  cursor:pointer;
+  touch-action:manipulation;
+}
+
+/* ADD ZIKIR */
+.add{
+  margin-top:20px;
+}
+
+input{
+  padding:8px 10px;
+  border-radius:10px;
+  border:1px solid #ccc;
+}
+
+/* FOOT */
+.footer{
+  position:absolute;
+  bottom:15px;
+  font-size:12px;
+  opacity:.6;
+}
 </style>
 </head>
 
 <body>
 
-<div class="menu" onclick="toggleMenu()">☰</div>
-
-<aside id="menu">
+<div class="sidebar">
   <h3>Esmaül Hüsna</h3>
-
-  <div class="item" onclick="selectEsma('Ya Rahman','Çok merhamet eden')">
-    Ya Rahman<br><small>Çok merhamet eden</small>
-  </div>
-  <div class="item" onclick="selectEsma('Ya Rahim','Merhameti bol olan')">
-    Ya Rahim<br><small>Merhameti bol olan</small>
-  </div>
-  <div class="item" onclick="selectEsma('Ya Şafi','Şifa veren')">
-    Ya Şafi<br><small>Şifa veren</small>
-  </div>
+  <div id="esmaList"></div>
 
   <h3>Özel Zikir</h3>
-  <input id="custom" placeholder="Sadece isim" style="width:100%;padding:6px">
-  <button onclick="addCustom()" style="margin-top:6px">Ekle</button>
-</aside>
+  <div id="customList"></div>
 
-<header>Beyza</header>
+  <div class="add">
+    <input id="customInput" placeholder="Zikir adı">
+    <button onclick="addCustom()">Ekle</button>
+  </div>
+</div>
 
 <div class="main">
 
-  <div class="esma">
-    <h2 id="esmaName">Zikir seç</h2>
-    <p id="esmaDesc">Zikre başlamak için bir Esma seç</p>
+  <div class="top">
+    <div class="brand">Beyza</div>
+    <button onclick="toggleDark()">🌙</button>
   </div>
 
-  <div class="device" id="device">
-    <div class="screen" id="count">0</div>
-    <div class="button" onclick="inc()">Zikir</div>
-    <div class="tespih">📿</div>
+  <div class="selected">
+    <div class="name" id="selName">📿 Zikir Seçilmedi</div>
+    <div class="meaning" id="selMeaning"></div>
   </div>
 
-  <div class="colors">
-    <div class="color" style="background:#5fd3a1" onclick="setColor('#5fd3a1')"></div>
-    <div class="color" style="background:#5bb3e6" onclick="setColor('#5bb3e6')"></div>
-    <div class="color" style="background:#f48fb1" onclick="setColor('#f48fb1')"></div>
-    <div class="color" style="background:#e6c15f" onclick="setColor('#e6c15f')"></div>
+  <div class="counter-wrap">
+    <div class="count" id="count">0</div>
+    <button class="zikir-btn" onclick="inc()">📿</button>
   </div>
 
-  <div class="toggle" onclick="toggleDark()">🌙 / ☀️</div>
-
+  <div class="footer">Reklamsız • Sade • Huzurlu</div>
 </div>
 
 <script>
-let count = localStorage.getItem("count") || 0;
-document.getElementById("count").innerText = count;
+let count = 0;
+
+const esmalar = [
+ {name:"Er-Rahman", meaning:"Sonsuz merhamet sahibi"},
+ {name:"Er-Rahim", meaning:"Merhameti bol"},
+ {name:"El-Melik", meaning:"Mülkün sahibi"},
+ {name:"El-Kuddüs", meaning:"Eksiklikten uzak"}
+ // buraya 99’unu ekleyebiliriz
+];
+
+const esmaList = document.getElementById("esmaList");
+const customList = document.getElementById("customList");
+
+function renderEsmalar(){
+  esmaList.innerHTML="";
+  esmalar.forEach(e=>{
+    const d=document.createElement("div");
+    d.className="list-item";
+    d.innerText=e.name;
+    d.onclick=()=>selectZikir(e.name,e.meaning);
+    esmaList.appendChild(d);
+  });
+}
+renderEsmalar();
+
+function selectZikir(name,meaning){
+  document.getElementById("selName").innerText="📿 "+name;
+  document.getElementById("selMeaning").innerText=meaning||"";
+}
 
 function inc(){
   count++;
-  localStorage.setItem("count",count);
-  document.getElementById("count").innerText = count;
-}
-
-function toggleMenu(){
-  document.getElementById("menu").classList.toggle("open");
-}
-
-function selectEsma(n,a){
-  document.getElementById("esmaName").innerText = n;
-  document.getElementById("esmaDesc").innerText = a;
-  toggleMenu();
-}
-
-function addCustom(){
-  const v=document.getElementById("custom").value;
-  if(!v) return;
-  selectEsma(v,"");
-}
-
-function setColor(c){
-  document.documentElement.style.setProperty("--device",c);
-  document.documentElement.style.setProperty("--accent",c);
+  document.getElementById("count").innerText=count;
 }
 
 function toggleDark(){
   document.body.classList.toggle("dark");
+}
+
+function addCustom(){
+  const val=document.getElementById("customInput").value.trim();
+  if(!val) return;
+  const d=document.createElement("div");
+  d.className="list-item";
+  d.innerText=val;
+  d.onclick=()=>selectZikir(val,"");
+  customList.appendChild(d);
+  document.getElementById("customInput").value="";
 }
 </script>
 
