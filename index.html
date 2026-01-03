@@ -2,9 +2,7 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Beyza Zikirmatik</title>
 
 <style>
@@ -29,11 +27,12 @@ body.dark{
 
 body{
   margin:0;
-  font-family:-apple-system,BlinkMacSystemFont,"SF Pro";
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   background:var(--bg);
   color:var(--text);
   height:100vh;
   overflow:hidden;
+  transition: background 0.3s;
 }
 
 /* SIDEBAR */
@@ -42,77 +41,79 @@ body{
   top:0;
   left:0;
   height:100vh;
-  width:240px;
+  width:260px;
   background:var(--card);
   padding:14px;
-  overflow:hidden;
-  transition:.3s;
-  z-index:10;
+  box-shadow: 5px 0 15px rgba(0,0,0,0.1);
+  transition:.3s ease-in-out;
+  z-index:100;
   display:flex;
   flex-direction:column;
 }
 
 .sidebar.closed{
-  transform:translateX(-100%);
+  transform:translateX(-110%);
 }
 
 .sidebar-scroll{
   flex:1;
   overflow-y:auto;
   padding-top:50px;
-  padding-bottom:10px;
 }
 
 .sidebar h3{
-  margin:10px 0;
-  font-size:13px;
-  opacity:.7;
+  margin:15px 0 5px;
+  font-size:12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity:.5;
 }
 
 .list-item{
-  padding:10px;
-  border-radius:12px;
-  margin-bottom:6px;
+  padding:12px;
+  border-radius:10px;
+  margin-bottom:4px;
   cursor:pointer;
   font-size:14px;
   display:flex;
   justify-content:space-between;
   align-items:center;
+  background: rgba(0,0,0,0.02);
 }
 
 .list-item:hover{
-  background:rgba(0,0,0,.05);
-}
-
-body.dark .list-item:hover{
-  background:rgba(255,255,255,.1);
+  background:var(--accent);
+  color: white;
 }
 
 .delete{
-  font-size:12px;
+  padding: 5px;
+  font-size:14px;
   opacity:.6;
-  cursor:pointer;
 }
 
-/* ADD */
+/* ADD SECTION */
 .fixed-add{
-  position:sticky;
-  bottom:0;
-  background:var(--card);
-  padding-top:10px;
+  padding:15px 0;
+  border-top: 1px solid rgba(0,0,0,0.05);
 }
 
 .fixed-add input{
   width:100%;
-  padding:8px 10px;
-  border-radius:10px;
-  border:1px solid #ccc;
+  padding:10px;
+  border-radius:8px;
+  border:1px solid #ddd;
+  margin-bottom: 8px;
+  outline: none;
 }
 
-body.dark .fixed-add input{
-  background:rgba(0,0,0,.4);
-  color:white;
-  border:1px solid rgba(255,255,255,.2);
+.add-btn {
+  width: 100%;
+  background: var(--accent);
+  color: white;
+  padding: 8px;
+  border-radius: 8px;
+  font-weight: bold;
 }
 
 /* MAIN */
@@ -123,10 +124,8 @@ body.dark .fixed-add input{
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  position:relative;
 }
 
-/* HEADER */
 .top{
   position:absolute;
   top:15px;
@@ -135,98 +134,57 @@ body.dark .fixed-add input{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  z-index:20;
 }
 
-.brand{
-  font-weight:600;
-  font-size:18px;
-}
+.brand{ font-weight:700; font-size:20px; letter-spacing: -0.5px; }
 
-button{
-  background:none;
-  border:none;
-  color:var(--text);
-  font-size:18px;
-  cursor:pointer;
-}
-
-/* SELECTED */
-.selected{
-  text-align:center;
-  margin-bottom:15px;
-}
-
-.selected .name{
-  font-size:20px;
-  font-weight:600;
-}
-
-.selected .meaning{
-  font-size:13px;
-  opacity:.7;
-  margin-top:4px;
-}
+.selected{ text-align:center; margin-bottom:30px; padding: 0 20px; }
+.selected .name{ font-size:24px; font-weight:700; }
+.selected .meaning{ font-size:14px; opacity:.6; margin-top:6px; min-height: 20px;}
 
 /* COUNTER */
 .counter-wrap{
-  background:linear-gradient(145deg,
-    rgba(255,255,255,.35),
-    rgba(255,255,255,.05));
-  backdrop-filter:blur(10px);
-  border-radius:50%;
-  width:240px;
-  height:240px;
+  background: var(--card);
+  border-radius: 50%;
+  width:260px;
+  height:260px;
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  box-shadow:
-    inset 0 0 25px rgba(255,255,255,.5),
-    0 15px 40px rgba(0,0,0,.2);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+  border: 8px solid var(--bg);
 }
 
-.count{
-  font-size:48px;
-  font-weight:700;
-  margin-bottom:10px;
-}
+.count{ font-size:54px; font-weight:800; margin-bottom:5px; }
 
 .zikir-btn{
-  width:110px;
-  height:110px;
+  width:100px;
+  height:100px;
   border-radius:50%;
-  background:radial-gradient(circle,
-    var(--accent),
-    rgba(0,0,0,.25));
-  box-shadow:
-    0 8px 20px rgba(0,0,0,.3),
-    inset 0 0 15px rgba(255,255,255,.6);
+  background: var(--accent);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
   border:none;
-  font-size:26px;
+  font-size:30px;
   color:white;
   cursor:pointer;
-  touch-action:manipulation;
+  transition: transform 0.1s;
 }
 
-/* RESET */
+.zikir-btn:active{ transform: scale(0.9); }
+
 .reset{
-  margin-top:12px;
-  font-size:13px;
-  opacity:.7;
+  margin-top:25px;
+  font-size:14px;
+  font-weight: 500;
+  opacity:.5;
+  text-decoration: underline;
   cursor:pointer;
 }
 
-/* FOOT */
-.footer{
-  position:absolute;
-  bottom:15px;
-  font-size:12px;
-  opacity:.6;
-}
+.footer{ position:absolute; bottom:20px; font-size:11px; opacity:.4; }
 </style>
 </head>
-
 <body>
 
 <div class="sidebar closed" id="sidebar">
@@ -234,27 +192,26 @@ button{
     <h3>Esmaül Hüsna</h3>
     <div id="esmaList"></div>
 
-    <h3>Özel Zikir</h3>
+    <h3>Özel Zikirlerim</h3>
     <div id="customList"></div>
   </div>
 
   <div class="fixed-add">
-    <input id="customInput" placeholder="Zikir adı">
-    <button onclick="addCustom()">Ekle</button>
+    <input id="customInput" placeholder="Yeni zikir adı...">
+    <button class="add-btn" onclick="addCustom()">Listeye Ekle</button>
   </div>
 </div>
 
 <div class="main">
-
   <div class="top">
-    <button onclick="toggleMenu()">☰</button>
+    <button onclick="toggleMenu()" style="font-size: 24px;">☰</button>
     <div class="brand">Zikirmatik</div>
-    <button onclick="toggleDark()">🌙</button>
+    <button id="themeIcon" onclick="toggleDark()" style="font-size: 24px;">🌙</button>
   </div>
 
   <div class="selected">
     <div class="name" id="selName">📿 Genel Zikir</div>
-    <div class="meaning" id="selMeaning"></div>
+    <div class="meaning" id="selMeaning">Her an çekilebilir</div>
   </div>
 
   <div class="counter-wrap">
@@ -262,129 +219,127 @@ button{
     <button class="zikir-btn" onclick="inc()">🌸</button>
   </div>
 
-  <div class="reset" onclick="resetCount()">Sıfırla</div>
+  <div class="reset" onclick="resetCount()">Sayacı Sıfırla</div>
 
-  <div class="footer">Reklamsız • Sade • Huzurlu</div>
+  <div class="footer">Sade • Huzurlu • Kesintisiz</div>
 </div>
 
 <script>
 let currentZikir = "Genel Zikir";
 let counters = JSON.parse(localStorage.getItem("counters") || "{}");
+let myCustomList = JSON.parse(localStorage.getItem("myCustomList") || "[]");
 
 const esmalar = [
-{name:"Er-Rahman",meaning:"Sonsuz merhamet sahibi"},
-{name:"Er-Rahim",meaning:"Merhameti bol"},
-{name:"El-Melik",meaning:"Mülkün sahibi"},
-{name:"El-Kuddüs",meaning:"Eksiklikten uzak"},
-{name:"Es-Selam",meaning:"Esenlik veren"},
-{name:"El-Mü’min",meaning:"Güven veren"},
-{name:"El-Müheymin",meaning:"Koruyup gözeten"},
-{name:"El-Aziz",meaning:"Üstün ve güçlü"},
-{name:"El-Cebbar",meaning:"Dilediğini yapan"},
-{name:"El-Mütekebbir",meaning:"Azamet sahibi"},
-{name:"El-Halik",meaning:"Yaratan"},
-{name:"El-Bari",meaning:"Kusursuz yaratan"},
-{name:"El-Musavvir",meaning:"Şekil veren"},
-{name:"El-Gaffar",meaning:"Çok affeden"},
-{name:"El-Kahhar",meaning:"Mutlak galip"},
-{name:"El-Vehhab",meaning:"Karşılıksız veren"},
-{name:"Er-Rezzak",meaning:"Rızık veren"},
-{name:"El-Fettah",meaning:"Açan"},
-{name:"El-Alim",meaning:"Her şeyi bilen"},
-{name:"El-Kabid",meaning:"Daraltan"},
-{name:"El-Basit",meaning:"Genişleten"},
-{name:"El-Hafıd",meaning:"Alçaltan"},
-{name:"Er-Rafi",meaning:"Yükselten"},
-{name:"El-Muizz",meaning:"İzzet veren"},
-{name:"El-Müzill",meaning:"Zelil eden"},
-{name:"Es-Semi",meaning:"Her şeyi işiten"},
-{name:"El-Basir",meaning:"Her şeyi gören"},
-{name:"El-Hakem",meaning:"Hükmeden"},
-{name:"El-Adl",meaning:"Adaletli"},
-{name:"El-Latif",meaning:"Lütufkâr"},
-{name:"El-Habir",meaning:"Her şeyden haberdar"},
-{name:"El-Halim",meaning:"Yumuşak huylu"},
-{name:"El-Azim",meaning:"Azamet sahibi"},
-{name:"El-Gafur",meaning:"Affı bol"},
-{name:"Eş-Şekur",meaning:"Az amele çok veren"},
-{name:"El-Aliyy",meaning:"Yüce"},
-{name:"El-Kebir",meaning:"Büyük"},
-{name:"El-Hafiz",meaning:"Koruyan"},
-{name:"El-Mukit",meaning:"Rızık veren"},
-{name:"El-Hasib",meaning:"Hesap gören"},
-{name:"El-Celil",meaning:"Heybetli"},
-{name:"El-Kerim",meaning:"Cömert"},
-{name:"Er-Rakib",meaning:"Gözetleyen"},
-{name:"El-Mucib",meaning:"Dua kabul eden"},
-{name:"El-Vasi",meaning:"Kuşatan"},
-{name:"El-Hakim",meaning:"Hikmet sahibi"},
-{name:"El-Vedud",meaning:"Çok seven"},
-{name:"El-Mecid",meaning:"Şanı yüce"},
-{name:"El-Bais",meaning:"Dirilten"},
-{name:"Eş-Şehid",meaning:"Her şeye şahit"},
-{name:"El-Hakk",meaning:"Gerçek"},
-{name:"El-Vekil",meaning:"Vekil"},
-{name:"El-Kaviyy",meaning:"Çok güçlü"},
-{name:"El-Metin",meaning:"Sapasağlam"},
-{name:"El-Veliyy",meaning:"Dost"},
-{name:"El-Hamid",meaning:"Övülen"},
-{name:"El-Muhsi",meaning:"Sayan"},
-{name:"El-Mübdi",meaning:"Başlatan"},
-{name:"El-Muid",meaning:"Geri getiren"},
-{name:"El-Muhyi",meaning:"Hayat veren"},
-{name:"El-Mümit",meaning:"Öldüren"},
-{name:"El-Hayy",meaning:"Diri"},
-{name:"El-Kayyum",meaning:"Her şeyi ayakta tutan"},
-{name:"El-Vacid",meaning:"Hiçbir şeye muhtaç olmayan"},
-{name:"El-Macid",meaning:"Şanı yüce"},
-{name:"El-Vahid",meaning:"Bir"},
-{name:"Es-Samed",meaning:"Her şey ona muhtaç"},
-{name:"El-Kadir",meaning:"Gücü yeten"},
-{name:"El-Muktedir",meaning:"Kudretli"},
-{name:"El-Mukaddim",meaning:"Öne alan"},
-{name:"El-Muahhir",meaning:"Geri bırakan"},
-{name:"El-Evvel",meaning:"İlk"},
-{name:"El-Ahir",meaning:"Son"},
-{name:"Ez-Zahir",meaning:"Açık"},
-{name:"El-Batın",meaning:"Gizli"},
-{name:"El-Vali",meaning:"Yöneten"},
-{name:"El-Müteali",meaning:"Yüce"},
-{name:"El-Berr",meaning:"İyilik sahibi"},
-{name:"Et-Tevvab",meaning:"Tevbeleri kabul eden"},
-{name:"El-Müntekim",meaning:"İntikam alan"},
-{name:"El-Afüvv",meaning:"Affeden"},
-{name:"Er-Rauf",meaning:"Şefkatli"},
-{name:"Malik-ül Mülk",meaning:"Mülkün sahibi"},
-{name:"Zül-Celali vel İkram",meaning:"Celal ve ikram sahibi"},
-{name:"El-Muksit",meaning:"Adaletli"},
-{name:"El-Cami",meaning:"Toplayan"},
-{name:"El-Gani",meaning:"Zengin"},
-{name:"El-Muğni",meaning:"Zengin eden"},
-{name:"El-Mani",meaning:"Engelleyen"},
-{name:"Ed-Darr",meaning:"Zarar veren"},
-{name:"En-Nafi",meaning:"Fayda veren"},
-{name:"En-Nur",meaning:"Nur"},
-{name:"El-Hadi",meaning:"Hidayet eden"},
-{name:"El-Bedi",meaning:"Eşsiz yaratan"},
-{name:"El-Baki",meaning:"Ebedi"},
-{name:"El-Varis",meaning:"Her şeyin varisi"},
-{name:"Er-Reşid",meaning:"Doğru yola ileten"},
-{name:"Es-Sabur",meaning:"Çok sabırlı"}
+  {name:"Er-Rahman",meaning:"Sonsuz merhamet sahibi"},
+  {name:"Er-Rahim",meaning:"Merhameti bol"},
+  {name:"El-Melik",meaning:"Mülkün sahibi"},
+  {name:"El-Kuddüs",meaning:"Eksiklikten uzak"},
+  {name:"Es-Selam",meaning:"Esenlik veren"},
+  {name:"El-Mü’min",meaning:"Güven veren"},
+  {name:"El-Müheymin",meaning:"Koruyup gözeten"},
+  {name:"El-Aziz",meaning:"Üstün ve güçlü"},
+  {name:"El-Cebbar",meaning:"Dilediğini yapan"},
+  {name:"El-Mütekebbir",meaning:"Azamet sahibi"},
+  {name:"El-Halik",meaning:"Yaratan"},
+  {name:"El-Bari",meaning:"Kusursuz yaratan"},
+  {name:"El-Musavvir",meaning:"Şekil veren"},
+  {name:"El-Gaffar",meaning:"Çok affeden"},
+  {name:"El-Kahhar",meaning:"Mutlak galip"},
+  {name:"El-Vehhab",meaning:"Karşılıksız veren"},
+  {name:"Er-Rezzak",meaning:"Rızık veren"},
+  {name:"El-Fettah",meaning:"Açan"},
+  {name:"El-Alim",meaning:"Her şeyi bilen"},
+  {name:"El-Kabid",meaning:"Daraltan"},
+  {name:"El-Basit",meaning:"Genişleten"},
+  {name:"El-Hafıd",meaning:"Alçaltan"},
+  {name:"Er-Rafi",meaning:"Yükselten"},
+  {name:"El-Muizz",meaning:"İzzet veren"},
+  {name:"El-Müzill",meaning:"Zelil eden"},
+  {name:"Es-Semi",meaning:"Her şeyi işiten"},
+  {name:"El-Basir",meaning:"Her şeyi gören"},
+  {name:"El-Hakem",meaning:"Hükmeden"},
+  {name:"El-Adl",meaning:"Adaletli"},
+  {name:"El-Latif",meaning:"Lütufkâr"},
+  {name:"El-Habir",meaning:"Her şeyden haberdar"},
+  {name:"El-Halim",meaning:"Yumuşak huylu"},
+  {name:"El-Azim",meaning:"Azamet sahibi"},
+  {name:"El-Gafur",meaning:"Affı bol"},
+  {name:"Eş-Şekur",meaning:"Az amele çok veren"},
+  {name:"El-Aliyy",meaning:"Yüce"},
+  {name:"El-Kebir",meaning:"Büyük"},
+  {name:"El-Hafiz",meaning:"Koruyan"},
+  {name:"El-Mukit",meaning:"Rızık veren"},
+  {name:"El-Hasib",meaning:"Hesap gören"},
+  {name:"El-Celil",meaning:"Heybetli"},
+  {name:"El-Kerim",meaning:"Cömert"},
+  {name:"Er-Rakib",meaning:"Gözetleyen"},
+  {name:"El-Mucib",meaning:"Dua kabul eden"},
+  {name:"El-Vasi",meaning:"Kuşatan"},
+  {name:"El-Hakim",meaning:"Hikmet sahibi"},
+  {name:"El-Vedud",meaning:"Çok seven"},
+  {name:"El-Mecid",meaning:"Şanı yüce"},
+  {name:"El-Bais",meaning:"Dirilten"},
+  {name:"Eş-Şehid",meaning:"Her şeye şahit"},
+  {name:"El-Hakk",meaning:"Gerçek"},
+  {name:"El-Vekil",meaning:"Vekil"},
+  {name:"El-Kaviyy",meaning:"Çok güçlü"},
+  {name:"El-Metin",meaning:"Sapasağlam"},
+  {name:"El-Veliyy",meaning:"Dost"},
+  {name:"El-Hamid",meaning:"Övülen"},
+  {name:"El-Muhsi",meaning:"Sayan"},
+  {name:"El-Mübdi",meaning:"Başlatan"},
+  {name:"El-Muid",meaning:"Geri getiren"},
+  {name:"El-Muhyi",meaning:"Hayat veren"},
+  {name:"El-Mümit",meaning:"Öldüren"},
+  {name:"El-Hayy",meaning:"Diri"},
+  {name:"El-Kayyum",meaning:"Her şeyi ayakta tutan"},
+  {name:"El-Vacid",meaning:"Hiçbir şeye muhtaç olmayan"},
+  {name:"El-Macid",meaning:"Şanı yüce"},
+  {name:"El-Vahid",meaning:"Bir"},
+  {name:"Es-Samed",meaning:"Her şey ona muhtaç"},
+  {name:"El-Kadir",meaning:"Gücü yeten"},
+  {name:"El-Muktedir",meaning:"Kudretli"},
+  {name:"El-Mukaddim",meaning:"Öne alan"},
+  {name:"El-Muahhir",meaning:"Geri bırakan"},
+  {name:"El-Evvel",meaning:"İlk"},
+  {name:"El-Ahir",meaning:"Son"},
+  {name:"Ez-Zahir",meaning:"Açık"},
+  {name:"El-Batın",meaning:"Gizli"},
+  {name:"El-Vali",meaning:"Yöneten"},
+  {name:"El-Müteali",meaning:"Yüce"},
+  {name:"El-Berr",meaning:"İyilik sahibi"},
+  {name:"Et-Tevvab",meaning:"Tevbeleri kabul eden"},
+  {name:"El-Müntekim",meaning:"İntikam alan"},
+  {name:"El-Afüvv",meaning:"Affeden"},
+  {name:"Er-Rauf",meaning:"Şefkatli"},
+  {name:"Malik-ül Mülk",meaning:"Mülkün sahibi"},
+  {name:"Zül-Celali vel İkram",meaning:"Celal ve ikram sahibi"},
+  {name:"El-Muksit",meaning:"Adaletli"},
+  {name:"El-Cami",meaning:"Toplayan"},
+  {name:"El-Gani",meaning:"Zengin"},
+  {name:"El-Muğni",meaning:"Zengin eden"},
+  {name:"El-Mani",meaning:"Engelleyen"},
+  {name:"Ed-Darr",meaning:"Zarar veren"},
+  {name:"En-Nafi",meaning:"Fayda veren"},
+  {name:"En-Nur",meaning:"Nur"},
+  {name:"El-Hadi",meaning:"Hidayet eden"},
+  {name:"El-Bedi",meaning:"Eşsiz yaratan"},
+  {name:"El-Baki",meaning:"Ebedi"},
+  {name:"El-Varis",meaning:"Her şeyin varisi"},
+  {name:"Er-Reşid",meaning:"Doğru yola ileten"},
+  {name:"Es-Sabur",meaning:"Çok sabırlı"}
 ];
 
 const esmaList = document.getElementById("esmaList");
 const customList = document.getElementById("customList");
 
-function saveCounters(){
+function saveAll(){
   localStorage.setItem("counters", JSON.stringify(counters));
-}
-
-function getCount(){
-  return counters[currentZikir] || 0;
+  localStorage.setItem("myCustomList", JSON.stringify(myCustomList));
 }
 
 function updateCount(){
-  document.getElementById("count").innerText = getCount();
+  document.getElementById("count").innerText = counters[currentZikir] || 0;
 }
 
 function selectZikir(name, meaning=""){
@@ -392,18 +347,25 @@ function selectZikir(name, meaning=""){
   document.getElementById("selName").innerText = "📿 " + name;
   document.getElementById("selMeaning").innerText = meaning;
   updateCount();
+  if(!document.getElementById("sidebar").classList.contains("closed")){
+    toggleMenu();
+  }
 }
 
 function inc(){
-  counters[currentZikir] = getCount() + 1;
-  saveCounters();
+  counters[currentZikir] = (counters[currentZikir] || 0) + 1;
+  // Mobil titreşim desteği
+  if(navigator.vibrate) navigator.vibrate(40);
+  saveAll();
   updateCount();
 }
 
 function resetCount(){
-  counters[currentZikir] = 0;
-  saveCounters();
-  updateCount();
+  if(confirm(currentZikir + " sayacı sıfırlansın mı?")){
+    counters[currentZikir] = 0;
+    saveAll();
+    updateCount();
+  }
 }
 
 function toggleMenu(){
@@ -412,6 +374,8 @@ function toggleMenu(){
 
 function toggleDark(){
   document.body.classList.toggle("dark");
+  const icon = document.getElementById("themeIcon");
+  icon.innerText = document.body.classList.contains("dark") ? "☀️" : "🌙";
 }
 
 function renderEsmalar(){
@@ -423,33 +387,49 @@ function renderEsmalar(){
     esmaList.appendChild(d);
   });
 }
-renderEsmalar();
+
+function renderCustoms(){
+  customList.innerHTML = "";
+  myCustomList.forEach((name, index) => {
+    const d=document.createElement("div");
+    d.className="list-item";
+    
+    const span=document.createElement("span");
+    span.innerText=name;
+    span.style.flex = "1";
+    span.onclick=()=>selectZikir(name, "Özel Zikir");
+
+    const del=document.createElement("span");
+    del.innerText="✕";
+    del.className="delete";
+    del.onclick=(e)=>{
+      e.stopPropagation();
+      myCustomList.splice(index, 1);
+      delete counters[name];
+      saveAll();
+      renderCustoms();
+    };
+
+    d.appendChild(span);
+    d.appendChild(del);
+    customList.appendChild(d);
+  });
+}
 
 function addCustom(){
   const val=document.getElementById("customInput").value.trim();
   if(!val) return;
-
-  const d=document.createElement("div");
-  d.className="list-item";
-
-  const span=document.createElement("span");
-  span.innerText=val;
-  span.onclick=()=>selectZikir(val);
-
-  const del=document.createElement("span");
-  del.innerText="❌";
-  del.className="delete";
-  del.onclick=()=>{
-    delete counters[val];
-    saveCounters();
-    d.remove();
-  };
-
-  d.appendChild(span);
-  d.appendChild(del);
-  customList.appendChild(d);
+  if(!myCustomList.includes(val)){
+    myCustomList.push(val);
+    saveAll();
+    renderCustoms();
+  }
   document.getElementById("customInput").value="";
 }
+
+// Başlangıç
+renderEsmalar();
+renderCustoms();
 updateCount();
 </script>
 
