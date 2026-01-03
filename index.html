@@ -5,11 +5,62 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Zikirmatik</title>
 <style>
+/* ESMA PANEL */
+.esma-panel {
+  position: fixed;
+  top: 0;
+  left: -280px;
+  width: 260px;
+  height: 100%;
+  background: #ffffff;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+  padding: 20px;
+  transition: left 0.3s ease;
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+body.dark .esma-panel {
+  background: #1a1a1a;
+  color: #fff;
+}
+
+.esma-panel.open {
+  left: 0;
+}
+
+.esma-panel h2 {
+  margin-top: 0;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+/* Toggle butonu */
+.esma-toggle {
+  position: fixed;
+  top: 20px;
+  left: 15px;
+  background: transparent;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  z-index: 1100;
+}
 :root{
  --bg:#f4f4f4; --text:#222; --primary:#2ecc71; --button:#27ae60;
 }
 body.dark{ --bg:#0f172a; --text:#e5e7eb; --primary:#38bdf8; --button:#0ea5e9; }
 body{
+      <!-- Esma Panel -->
+<div id="esmaPanel" class="esma-panel">
+  <h2>Esmaül Hüsna</h2>
+  <div class="esma-list">
+    <!-- şimdilik boş -->
+  </div>
+</div>
+
+<!-- Panel açma butonu -->
+<button class="esma-toggle" onclick="toggleEsma()">☰</button>
       touch-action: manipulation;
  margin:0; font-family:-apple-system,BlinkMacSystemFont; background:var(--bg); color:var(--text);
  display:flex; align-items:center; justify-content:center; min-height:100vh; transition:.3s;
@@ -76,6 +127,9 @@ select{width:100%; margin-top:8px; padding:8px; border-radius:10px}
 </div>
 
 <script>
+function toggleEsma() {
+  document.getElementById("esmaPanel").classList.toggle("open");
+}
 let count=Number(localStorage.getItem('count'))||0;
 const counter=document.getElementById('counter'); counter.textContent=count;
 function increment(){count++;counter.textContent=count;localStorage.setItem('count',count); if(navigator.vibrate) navigator.vibrate(40);}
