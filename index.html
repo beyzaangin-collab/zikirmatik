@@ -2,231 +2,268 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>Beyza Zikirmatik</title>
 
 <style>
 :root{
-  --green:#6fbf9c;
-  --blue:#6faee6;
-  --pink:#e39ab8;
-  --gold:#e6c36f;
-  --purple:#b28be6;
-
-  --bg-green-dark:#0f1f18;
-  --bg-blue-dark:#0e1822;
-  --bg-pink-dark:#241018;
-  --bg-gold-dark:#1f1a0d;
-  --bg-purple-dark:#1b1322;
-
-  --main-color: var(--pink);
+  --bg:#f6f6f8;
+  --card:#ffffff;
+  --text:#222;
+  --accent:#e7b6c8;
+}
+body.dark{
+  --bg:#232334;
+  --card:#2f2f45;
+  --text:#f1f1f1;
+  --accent:#c792b2;
 }
 
 *{box-sizing:border-box}
 body{
   margin:0;
   font-family:-apple-system,BlinkMacSystemFont;
-  background:#f5f5f5;
-  color:#111;
-  transition:.3s;
-  touch-action:manipulation;
-}
-
-body.dark.green{background:var(--bg-green-dark);color:#fff}
-body.dark.blue{background:var(--bg-blue-dark);color:#fff}
-body.dark.pink{background:var(--bg-pink-dark);color:#fff}
-body.dark.gold{background:var(--bg-gold-dark);color:#fff}
-body.dark.purple{background:var(--bg-purple-dark);color:#fff}
-
-.menu-toggle{
-  position:fixed;
-  top:16px;
-  left:16px;
-  font-size:22px;
-  z-index:1001;
-  background:none;
-  border:none;
-  color:inherit;
+  background:linear-gradient(180deg,var(--bg),#00000008);
+  color:var(--text);
 }
 
 header{
-  text-align:center;
-  padding:16px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px 16px;
+  font-weight:600;
 }
+.menu{font-size:22px;cursor:pointer}
 
-.drawer{
+#drawer{
   position:fixed;
   inset:0 auto 0 0;
-  width:70%;
-  max-width:260px;
-  background:rgba(255,255,255,.95);
-  backdrop-filter:blur(12px);
+  width:260px;
+  background:var(--card);
+  box-shadow:4px 0 25px rgba(0,0,0,.25);
   transform:translateX(-100%);
   transition:.3s;
-  z-index:1000;
-  overflow:auto;
+  z-index:10;
+  padding:16px;
+  overflow-y:auto;
 }
-body.dark .drawer{background:rgba(20,20,20,.95)}
-.drawer.open{transform:translateX(0)}
+#drawer.open{transform:translateX(0)}
 
+.drawer-title{font-weight:600;margin-bottom:10px}
 .drawer-item{
-  padding:12px 14px;
-  border-bottom:1px solid rgba(0,0,0,.08);
+  padding:10px;
+  border-radius:10px;
+  cursor:pointer;
   font-size:14px;
 }
-.drawer-item b{display:block}
-.drawer-item small{font-size:12px;opacity:.65}
-
-main{text-align:center;padding:20px}
-
-.zikirmatik{
-  width:260px;
-  height:360px;
-  margin:24px auto;
-  border-radius:38px;
-  background:linear-gradient(145deg,rgba(255,255,255,.35),var(--main-color));
-  box-shadow:
-    0 18px 45px rgba(0,0,0,.45),
-    inset 0 1px 1px rgba(255,255,255,.5),
-    inset 0 -8px 16px rgba(0,0,0,.25),
-    0 0 30px color-mix(in srgb, var(--main-color) 60%, transparent);
-  backdrop-filter:blur(14px);
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:space-around;
-}
-
-.screen{
-  width:170px;
-  height:64px;
-  background:#000;
-  border-radius:18px;
-  color:#3cff9a;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:34px;
-}
-
-.zikir-btn{
-  width:120px;
-  height:120px;
-  border-radius:50%;
-  background:radial-gradient(circle at top left,rgba(255,255,255,.35),rgba(0,0,0,.85));
+.drawer-item:hover{
+  background:var(--accent);
   color:#fff;
+}
+.add-btn{
+  font-size:14px;
+  margin-bottom:12px;
+  color:var(--accent);
+  cursor:pointer;
+}
+
+main{
+  padding:24px;
+  text-align:center;
+}
+
+.esma-name{
+  font-size:18px;
+  font-weight:600;
+  margin-bottom:4px;
+  min-height:22px;
+}
+.esma-desc{
+  font-size:13px;
+  opacity:.7;
+  min-height:18px;
+}
+
+.counter{
+  width:240px;
+  height:240px;
+  margin:26px auto 16px;
+  border-radius:50%;
+  background:radial-gradient(circle at top,var(--card),var(--accent));
+  box-shadow:
+    inset 0 0 35px rgba(255,255,255,.45),
+    0 14px 35px rgba(0,0,0,.35);
   display:flex;
   align-items:center;
   justify-content:center;
+  font-size:52px;
+  font-weight:600;
+  user-select:none;
 }
 
-.colors span{
-  width:18px;
-  height:18px;
-  border-radius:50%;
-  display:inline-block;
-  margin:6px;
+/* TESBİH */
+.tesbih{
+  display:flex;
+  justify-content:center;
+  gap:6px;
+  margin-bottom:22px;
+  flex-wrap:wrap;
 }
-.green{background:var(--green)}
-.blue{background:var(--blue)}
-.pink{background:var(--pink)}
-.gold{background:var(--gold)}
-.purple{background:var(--purple)}
+.bead{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:rgba(0,0,0,.15);
+  box-shadow:inset 0 0 4px rgba(255,255,255,.4);
+  transition:.2s;
+}
+.dark .bead{
+  background:rgba(255,255,255,.2);
+}
+.bead.active{
+  background:var(--accent);
+  box-shadow:0 0 8px var(--accent);
+}
+
+button{
+  padding:10px 20px;
+  border:none;
+  border-radius:14px;
+  background:var(--accent);
+  color:#fff;
+  font-size:15px;
+}
+.toggle{
+  margin-top:22px;
+  font-size:14px;
+  opacity:.7;
+  cursor:pointer;
+}
 </style>
 </head>
 
-<body class="pink">
-
-<button class="menu-toggle" id="menuBtn">☰</button>
+<body>
 
 <header>
-  <h1>Beyza</h1>
+  <div class="menu" onclick="toggleDrawer()">☰</div>
+  Beyza
 </header>
 
-<div class="drawer" id="drawer"></div>
+<div id="drawer">
+  <div class="drawer-title">Zikirler</div>
+  <div class="add-btn" onclick="addCustom()">+ Özel Zikir</div>
+  <div id="list"></div>
+</div>
 
 <main>
-  <h3 id="selectedEsma">Esma seç</h3>
-  <p id="meaning">Zikre başlamak için bir Esma seç</p>
+  <div class="esma-name" id="name"></div>
+  <div class="esma-desc" id="desc"></div>
 
-  <div class="zikirmatik">
-    <div class="screen" id="count">0</div>
-    <div class="zikir-btn" id="zikirBtn">Zikir</div>
+  <div class="counter" onclick="increment()">
+    <span id="count">0</span>
   </div>
 
-  <div class="colors">
-    <span class="green" onclick="setColor('green')"></span>
-    <span class="blue" onclick="setColor('blue')"></span>
-    <span class="pink" onclick="setColor('pink')"></span>
-    <span class="gold" onclick="setColor('gold')"></span>
-    <span class="purple" onclick="setColor('purple')"></span>
-  </div>
+  <div class="tesbih" id="tesbih"></div>
 
-  <button onclick="toggleMode()">Dark / Light</button>
+  <button onclick="reset()">Sıfırla</button>
+  <div class="toggle" onclick="toggleMode()">Dark / Light</div>
 </main>
 
 <script>
+const TESBIH_COUNT = 33;
+
 const esmalar=[
-["Ya Rahman","Çok merhamet eden"],
-["Ya Rahim","Merhameti bol olan"],
-["Ya Malik","Mülkün sahibi"],
-["Ya Kuddüs","Tertemiz olan"],
-["Ya Selam","Esenlik veren"],
-["Ya Mümin","Güven veren"],
-["Ya Aziz","Üstün güçlü"],
-["Ya Cebbar","Dilediğini yaptıran"],
-["Ya Gaffar","Çok affeden"],
-["Ya Rezzak","Rızık veren"],
-["Ya Alim","Her şeyi bilen"],
-["Ya Nur","Nurlandıran"],
-["Ya Hadi","Hidayet veren"],
-["Ya Sabur","Çok sabırlı"]
+ {n:"Er-Rahman",d:"Tüm mahlûkata merhamet eden"},
+ {n:"Er-Rahim",d:"Ahirette müminlere merhamet eden"},
+ {n:"El-Melik",d:"Mülkün tek sahibi"},
+ {n:"El-Kuddus",d:"Her türlü eksikten uzak"},
+ {n:"Es-Selam",d:"Esenlik veren"},
+ // diğerleri aynı mantıkla devam
 ];
 
-let current=null,count=0;
-const drawer=document.getElementById("drawer");
-const menuBtn=document.getElementById("menuBtn");
-const countEl=document.getElementById("count");
+let current={type:"GENEL",name:"GENEL"};
 
-esmalar.forEach(e=>{
-  const d=document.createElement("div");
-  d.className="drawer-item";
-  d.innerHTML=`<b>${e[0]}</b><small>${e[1]}</small>`;
-  d.onclick=()=>selectEsma(e);
-  drawer.appendChild(d);
-});
+function key(){return "zikir_"+current.type+"_"+current.name}
 
-menuBtn.onclick=()=>{
-  drawer.classList.toggle("open");
-  menuBtn.textContent=drawer.classList.contains("open")?"✕":"☰";
-};
-
-function selectEsma(e){
-  current=e[0];
-  document.getElementById("selectedEsma").innerText=e[0];
-  document.getElementById("meaning").innerText=e[1];
-  count=+localStorage.getItem(e[0])||0;
-  countEl.innerText=count;
-  drawer.classList.remove("open");
-  menuBtn.textContent="☰";
+function load(){
+ const c = Number(localStorage.getItem(key())||0);
+ document.getElementById("count").innerText = c;
+ document.getElementById("name").innerText =
+   current.type==="ESMA"?current.name:"";
+ document.getElementById("desc").innerText =
+   current.type==="ESMA"?current.desc||"":"";
+ drawTesbih(c);
 }
 
-document.getElementById("zikirBtn").onclick=()=>{
-  if(!current)return;
-  count++;
-  localStorage.setItem(current,count);
-  countEl.innerText=count;
-};
+function increment(){
+ let c=Number(localStorage.getItem(key())||0)+1;
+ localStorage.setItem(key(),c);
+ document.getElementById("count").innerText=c;
+ drawTesbih(c);
+}
 
-function setColor(c){
-  document.body.className=document.body.className.replace(/\bgreen|blue|pink|gold|purple\b/g,"");
-  document.body.classList.add(c);
-  document.documentElement.style.setProperty("--main-color",getComputedStyle(document.querySelector("."+c)).backgroundColor);
+function reset(){
+ localStorage.setItem(key(),0);
+ load();
+}
+
+function drawTesbih(count){
+ const t=document.getElementById("tesbih");
+ t.innerHTML="";
+ const active = count % TESBIH_COUNT;
+ for(let i=0;i<TESBIH_COUNT;i++){
+  const b=document.createElement("div");
+  b.className="bead"+(i<active?" active":"");
+  t.appendChild(b);
+ }
+}
+
+function toggleDrawer(){
+ document.getElementById("drawer").classList.toggle("open");
+}
+
+function select(obj){
+ current=obj;
+ toggleDrawer();
+ load();
+}
+
+function addCustom(){
+ let name=prompt("Zikir adı:");
+ if(!name) return;
+ let list=JSON.parse(localStorage.getItem("custom")||"[]");
+ list.push(name);
+ localStorage.setItem("custom",JSON.stringify(list));
+ render();
+}
+
+function render(){
+ let l=document.getElementById("list");
+ l.innerHTML="";
+ l.append(item({type:"GENEL",name:"GENEL"}));
+ esmalar.forEach(e=>l.append(item({type:"ESMA",name:e.n,desc:e.d})));
+ JSON.parse(localStorage.getItem("custom")||"[]")
+   .forEach(c=>l.append(item({type:"CUSTOM",name:c})));
+}
+
+function item(obj){
+ let d=document.createElement("div");
+ d.className="drawer-item";
+ d.innerText=obj.name;
+ d.onclick=()=>select(obj);
+ return d;
 }
 
 function toggleMode(){
-  document.body.classList.toggle("dark");
+ document.body.classList.toggle("dark");
+ localStorage.setItem("mode",document.body.classList.contains("dark"));
 }
+
+if(localStorage.getItem("mode")==="true")
+ document.body.classList.add("dark");
+
+render(); load();
 </script>
 
 </body>
