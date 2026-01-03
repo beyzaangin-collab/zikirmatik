@@ -3,96 +3,102 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-<title>Beyza Zikirmatik Pro</title>
+<title>Beyza Pro Zikirmatik</title>
 
 <style>
 :root {
   --accent: #ff85ba;
-  --bg: #eef2f7;
-  --card-bg: rgba(255, 255, 255, 0.8);
-  --shadow-dark: #d1d9e6;
-  --shadow-light: #ffffff;
-  --text: #4a5568;
+  --bg: #f4f7fa;
+  --card: rgba(255, 255, 255, 0.6);
+  --sh-dark: #d1d9e6;
+  --sh-light: #ffffff;
+  --text: #34495e;
 }
 
 body.dark {
-  --bg: #1e1e2f;
-  --card-bg: rgba(45, 45, 65, 0.7);
-  --shadow-dark: #151525;
-  --shadow-light: #2a2a3f;
-  --text: #e2e8f0;
+  --bg: #12122b;
+  --card: rgba(30, 30, 50, 0.5);
+  --sh-dark: #0a0a1a;
+  --sh-light: #1e1e3d;
+  --text: #ecf0f1;
 }
 
-* { box-sizing: border-box; user-select: none; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
 
 body {
-  margin: 0; font-family: 'Segoe UI', Roboto, Helvetica, sans-serif;
+  margin: 0; font-family: 'Inter', -apple-system, sans-serif;
   background: var(--bg); color: var(--text);
-  height: 100vh; display: flex; align-items: center; justify-content: center;
-  transition: all 0.5s ease;
+  height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  transition: background 0.5s ease; overflow: hidden;
 }
 
 /* Üst Navigasyon */
-.nav-top {
-  position: fixed; top: 25px; left: 20px; right: 20px;
-  display: flex; justify-content: space-between; align-items: center; z-index: 2000;
+.top-nav {
+  position: fixed; top: 20px; left: 20px; right: 20px;
+  display: flex; justify-content: space-between; align-items: center; z-index: 1000;
 }
 
-.btn-soft {
-  width: 48px; height: 48px; background: var(--bg); border-radius: 16px;
-  display: flex; align-items: center; justify-content: center; border: none;
-  box-shadow: 6px 6px 12px var(--shadow-dark), -6px -6px 12px var(--shadow-light);
-  cursor: pointer; color: var(--text); font-size: 20px;
+.circle-btn {
+  width: 44px; height: 44px; border-radius: 50%; border: none;
+  background: var(--bg); box-shadow: 5px 5px 10px var(--sh-dark), -5px -5px 10px var(--sh-light);
+  cursor: pointer; color: var(--text); font-size: 18px; display: flex; align-items: center; justify-content: center;
 }
 
-/* Ana Kart Tasarımı */
-.main-card {
-  width: 300px; padding: 40px 25px; border-radius: 50px;
-  background: var(--card-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+/* Ana Dış Yuvarlak (Cam Efekti) */
+.outer-circle {
+  width: 85vw; max-width: 320px; aspect-ratio: 1/1;
+  border-radius: 50%; background: var(--card);
+  backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
   border: 1px solid rgba(255,255,255,0.4);
-  box-shadow: 25px 25px 50px var(--shadow-dark), -25px -25px 50px var(--shadow-light);
-  text-align: center;
+  box-shadow: 20px 20px 40px var(--sh-dark), -20px -20px 40px var(--sh-light);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  position: relative;
 }
 
-.count-val { font-size: 80px; font-weight: 300; margin: 10px 0 30px 0; color: var(--text); }
+/* Sayaç Sayısı */
+.count-num { font-size: 72px; font-weight: 200; margin: 0; line-height: 1; }
 
-/* İç İçe Geçmiş Yuvarlak Buton */
-.btn-ring-outer {
-  width: 150px; height: 150px; margin: 0 auto; border-radius: 50%;
+/* İç Yuvarlak Zikir Butonu Yuvası */
+.inner-socket {
+  width: 130px; height: 130px; border-radius: 50%; margin-top: 15px;
   background: var(--bg); display: flex; align-items: center; justify-content: center;
-  box-shadow: inset 10px 10px 20px var(--shadow-dark), inset -10px -10px 20px var(--shadow-light);
+  box-shadow: inset 8px 8px 16px var(--sh-dark), inset -8px -8px 16px var(--sh-light);
 }
 
-.zikir-trigger {
-  width: 110px; height: 110px; border-radius: 50%; border: none;
-  background: var(--accent); color: white; font-size: 45px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15); transition: 0.1s; cursor: pointer;
+.main-trigger {
+  width: 95px; height: 95px; border-radius: 50%; border: none;
+  background: var(--accent); color: white; font-size: 40px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15); transition: 0.1s;
 }
-.zikir-trigger:active { transform: scale(0.94); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+.main-trigger:active { transform: scale(0.92); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
 
-/* Sidebar & Liste */
+/* Sidebar */
 .sidebar {
   position: fixed; top: 0; left: 0; height: 100%; width: 280px;
-  background: var(--card-bg); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
-  z-index: 1500; transform: translateX(-100%); transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  display: flex; flex-direction: column; border-right: 1px solid rgba(255,255,255,0.2);
+  background: var(--card); backdrop-filter: blur(35px); -webkit-backdrop-filter: blur(35px);
+  transform: translateX(-100%); transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1500; display: flex; flex-direction: column;
 }
 .sidebar.active { transform: translateX(0); }
 
-.list-container { flex: 1; overflow-y: auto; padding: 100px 20px 180px 20px; }
+.list-area { flex: 1; overflow-y: auto; padding: 80px 20px 180px 20px; }
 
-.item {
-  padding: 16px; background: rgba(255,255,255,0.2); margin-bottom: 12px;
-  border-radius: 18px; border: 1px solid rgba(255,255,255,0.3); font-weight: 500;
+.zikir-item {
+  padding: 12px 15px; background: rgba(255,255,255,0.1); margin-bottom: 8px;
+  border-radius: 15px; border: 1px solid rgba(255,255,255,0.2); cursor: pointer;
+}
+.zikir-item span { display: block; font-size: 14px; font-weight: 600; }
+.zikir-item small { font-size: 11px; opacity: 0.6; }
+
+.add-panel {
+  position: absolute; bottom: 0; left: 0; width: 100%; padding: 20px;
+  background: var(--card); border-top: 1px solid rgba(255,255,255,0.1);
 }
 
-.add-section {
-  position: absolute; bottom: 0; left: 0; width: 100%; padding: 25px;
-  background: var(--card-bg); border-top: 1px solid rgba(255,255,255,0.2);
+.add-panel input {
+  width: 100%; padding: 12px; border-radius: 12px; border: none;
+  background: var(--bg); margin-bottom: 10px; color: var(--text);
 }
-
-.theme-dots { display: flex; gap: 15px; justify-content: center; margin-top: 35px; }
-.dot { width: 22px; height: 22px; border-radius: 50%; border: 3px solid white; cursor: pointer; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
 
 .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.2); z-index: 1400; display: none; }
 .sidebar.active + .overlay { display: block; }
@@ -100,111 +106,149 @@ body {
 </head>
 <body>
 
-<div class="nav-top">
-  <button class="btn-soft" onclick="toggleSidebar()">☰</button>
-  <div style="font-weight: 800; font-size: 14px; letter-spacing: 2px;">BEYZA PRO</div>
-  <button class="btn-soft" onclick="toggleDark()" id="darkBtn">🌙</button>
+<div class="top-nav">
+  <button class="circle-btn" onclick="toggleMenu()">☰</button>
+  <div style="text-align:center">
+    <div id="selName" style="font-weight:700; font-size: 16px;">Genel Zikir</div>
+    <div id="selMeaning" style="font-size: 11px; opacity: 0.5;">Her vakit için</div>
+  </div>
+  <button class="circle-btn" onclick="toggleDark()" id="darkBtn">🌙</button>
 </div>
 
 <div class="sidebar" id="sidebar">
-  <div class="list-container" id="zikirList">
-    <small style="opacity:0.5">ESMAÜL HÜSNA</small>
-    <div id="esmaContainer"></div>
-    <br>
-    <small style="opacity:0.5">ÖZEL ZİKİRLER</small>
-    <div id="customContainer"></div>
-  </div>
-  <div class="add-section">
-    <input id="newZikir" placeholder="Zikir adı yaz..." style="width:100%; border:none; padding:12px; border-radius:12px; background:var(--bg); color:var(--text); margin-bottom:10px; outline:none;">
-    <button onclick="addNew()" style="width:100%; border:none; padding:12px; border-radius:12px; background:var(--accent); color:white; font-weight:bold;">Listeye Ekle</button>
+  <div class="list-area" id="listArea"></div>
+  <div class="add-panel">
+    <input id="customName" placeholder="Yeni Zikir Adı...">
+    <button onclick="addCustom()" style="width:100%; border:none; padding:12px; border-radius:12px; background:var(--accent); color:white; font-weight:bold;">Listeye Ekle</button>
   </div>
 </div>
-<div class="overlay" onclick="toggleSidebar()"></div>
+<div class="overlay" onclick="toggleMenu()"></div>
 
-<div class="content">
-  <div id="activeTitle" style="text-align:center; font-weight:600; margin-bottom:20px; opacity:0.8;">🌸 Genel Zikir</div>
+<div class="outer-circle">
+  <small style="opacity: 0.4; letter-spacing: 2px;">SAYI</small>
+  <div class="count-num" id="displayCount">0</div>
   
-  <div class="main-card">
-    <small style="letter-spacing:2px; opacity:0.5">SAYI</small>
-    <div class="count-val" id="displayCount">0</div>
-    
-    <div class="btn-ring-outer">
-      <button class="zikir-trigger" onclick="handleZikir()">🌸</button>
-    </div>
-
-    <div style="margin-top:35px; font-size:12px; font-weight:bold; letter-spacing:1px; cursor:pointer; opacity:0.4" onclick="resetCount()">SIFIRLA</div>
+  <div class="inner-socket">
+    <button class="main-trigger" onclick="inc()">🌸</button>
   </div>
 
-  <div class="theme-dots">
-    <div class="dot" style="background:#ff85ba" onclick="setAccent('#ff85ba')"></div>
-    <div class="dot" style="background:#82ccdd" onclick="setAccent('#82ccdd')"></div>
-    <div class="dot" style="background:#78e08f" onclick="setAccent('#78e08f')"></div>
-    <div class="dot" style="background:#f6b93b" onclick="setAccent('#f6b93b')"></div>
-  </div>
+  <div style="margin-top: 15px; font-size: 10px; font-weight: 700; opacity: 0.4; cursor: pointer" onclick="reset()">SIFIRLA</div>
+</div>
+
+<div style="display: flex; gap: 15px; margin-top: 40px;">
+  <div style="width:20px; height:20px; border-radius:50%; background:#ff85ba; cursor:pointer" onclick="setTheme('#ff85ba')"></div>
+  <div style="width:20px; height:20px; border-radius:50%; background:#70a1ff; cursor:pointer" onclick="setTheme('#70a1ff')"></div>
+  <div style="width:20px; height:20px; border-radius:50%; background:#7bed9f; cursor:pointer" onclick="setTheme('#7bed9f')"></div>
 </div>
 
 <script>
-let currentZikir = "Genel Zikir";
-let data = JSON.parse(localStorage.getItem('zikirData') || '{"Genel Zikir": 0}');
-let customNames = JSON.parse(localStorage.getItem('customNames') || '[]');
+const esmalar = [
+    {n:"Er-Rahman", m:"Dünyada her kula şefkat eden"}, {n:"Er-Rahim", m:"Ahirette sadece müminlere acıyan"},
+    {n:"El-Melik", m:"Mülkün sahibi"}, {n:"El-Kuddüs", m:"Hatadan münezzeh"},
+    {n:"Es-Selam", m:"Selamete çıkaran"}, {n:"El-Mü’min", m:"Güven veren"},
+    {n:"El-Müheymin", m:"Gözeten"}, {n:"El-Aziz", m:"İzzet sahibi"},
+    {n:"El-Cebbar", m:"Dilediğini yapan"}, {n:"El-Mütekebbir", m:"Büyüklük sahibi"},
+    {n:"El-Halik", m:"Yaratan"}, {n:"El-Bari", m:"Kusursuz var eden"},
+    {n:"El-Musavvir", m:"Şekil veren"}, {n:"El-Gaffar", m:"Affeden"},
+    {n:"El-Kahhar", m:"Her şeye galip gelen"}, {n:"El-Vehhab", m:"Bağışlayan"},
+    {n:"Er-Rezzak", m:"Rızık veren"}, {n:"El-Fettah", m:"Kapıları açan"},
+    {n:"El-Alim", m:"Her şeyi bilen"}, {n:"El-Kabid", m:"Sıkan, daraltan"},
+    {n:"El-Basit", m:"Açan, genişleten"}, {n:"El-Hafıd", m:"Alçaltan"},
+    {n:"Er-Rafi", m:"Yükselten"}, {n:"El-Muizz", m:"İzzet veren"},
+    {n:"El-Müzill", m:"Zelil eden"}, {n:"Es-Semi", m:"İşiten"},
+    {n:"El-Basir", m:"Gören"}, {n:"El-Hakem", m:"Hükmeden"},
+    {n:"El-Adl", m:"Adaletli"}, {n:"El-Latif", m:"Lütufkar"},
+    {n:"El-Habir", m:"Haberdar olan"}, {n:"El-Halim", m:"Yumuşak davranan"},
+    {n:"El-Azim", m:"Pek yüce"}, {n:"El-Gafur", m:"Mağfiret eden"},
+    {n:"Eş-Şekur", m:"Az amele çok sevap veren"}, {n:"El-Aliyy", m:"Yüce olan"},
+    {n:"El-Kebir", m:"En büyük"}, {n:"El-Hafiz", m:"Muhafaza eden"},
+    {n:"El-Mukit", m:"Rızıkları yaratan"}, {n:"El-Hasib", m:"Hesap gören"},
+    {n:"El-Celil", m:"Celalet sahibi"}, {n:"El-Kerim", m:"Cömert"},
+    {n:"Er-Rakib", m:"Gözetleyen"}, {n:"El-Mucib", m:"Duaları kabul eden"},
+    {n:"El-Vasi", m:"İlmi geniş"}, {n:"El-Hakim", m:"Hikmet sahibi"},
+    {n:"El-Vedud", m:"Seven, sevilen"}, {n:"El-Mecid", m:"Şanı yüce"},
+    {n:"El-Bais", m:"Ölüleri dirilten"}, {n:"Eş-Şehid", m:"Her yerde hazır"},
+    {n:"El-Hakk", m:"Varlığı değişmeyen"}, {n:"El-Vekil", m:"Güvenilen"},
+    {n:"El-Kaviyy",m:"Çok güçlü"}, {n:"El-Metin", m:"Sarsılmaz"},
+    {n:"El-Veliyy", m:"Dost olan"}, {n:"El-Hamid", m:"Övülen"},
+    {n:"El-Muhsi", m:"Sayan"}, {n:"El-Mübdi", m:"Örneksiz yaratan"},
+    {n:"El-Muid", m:"Geri döndüren"}, {n:"El-Muhyi", m:"Can veren"},
+    {n:"El-Mümit", m:"Öldüren"}, {n:"El-Hayy", m:"Daima diri"},
+    {n:"El-Kayyum", m:"Her şeyi ayakta tutan"}, {n:"El-Vacid", m:"İstediğini bulan"},
+    {n:"El-Macid", m:"Kerem sahibi"}, {n:"El-Vahid", m:"Tek olan"},
+    {n:"Es-Samed", m:"Muhtaç olmayan"}, {n:"El-Kadir", m:"Kudret sahibi"},
+    {n:"El-Muktedir", m:"Kadir olan"}, {n:"El-Mukaddim", m:"Öne alan"},
+    {n:"El-Muahhir", m:"Geri bırakan"}, {n:"El-Evvel", m:"İlk"},
+    {n:"El-Ahir", m:"Son"}, {n:"Ez-Zahir", m:"Varlığı aşikar"},
+    {n:"El-Batın", m:"Gizli"}, {n:"El-Vali", m:"İdare eden"},
+    {n:"El-Müteali", m:"En yüce"}, {n:"El-Berr", m:"İyiliği bol"},
+    {n:"Et-Tevvab", m:"Tevbeleri kabul eden"}, {n:"El-Müntekim", m:"İntikam alan"},
+    {n:"El-Afüvv", m:"Affeden"}, {n:"Er-Rauf", m:"Şefkatli"},
+    {n:"Malik-ül Mülk", m:"Mülkün sahibi"}, {n:"Zül-Celali vel İkram", m:"Celal ve ikram sahibi"},
+    {n:"El-Muksit", m:"Adaletli"}, {n:"El-Cami", m:"Toplayan"},
+    {n:"El-Gani", m:"Zengin"}, {n:"El-Muğni", m:"Zengin eden"},
+    {n:"El-Mani", m:"Engelleyen"}, {n:"Ed-Darr", m:"Zarar veren"},
+    {n:"En-Nafi", m:"Fayda veren"}, {n:"En-Nur", m:"Nur"},
+    {n:"El-Hadi", m:"Hidayet veren"}, {n:"El-Bedi", m:"Eşsiz yaratan"},
+    {n:"El-Baki", m:"Ebedi"}, {n:"El-Varis", m:"Her şeyin varisi"},
+    {n:"Er-Reşid", m:"Yol gösteren"}, {n:"Es-Sabur", m:"Çok sabırlı"}
+];
 
-function toggleSidebar() { document.getElementById('sidebar').classList.toggle('active'); }
+let activeZikir = "Genel Zikir";
+let data = JSON.parse(localStorage.getItem('zData') || '{"Genel Zikir":0}');
+let customs = JSON.parse(localStorage.getItem('zCust') || '[]');
+
+function toggleMenu() { document.getElementById('sidebar').classList.toggle('active'); }
 function toggleDark() { 
-  document.body.classList.toggle('dark');
-  document.getElementById('darkBtn').innerText = document.body.classList.contains('dark') ? '☀️' : '🌙';
+    document.body.classList.toggle('dark');
+    document.getElementById('darkBtn').innerText = document.body.classList.contains('dark') ? '☀️' : '🌙';
 }
-function setAccent(c) { document.documentElement.style.setProperty('--accent', c); }
+function setTheme(c) { document.documentElement.style.setProperty('--accent', c); }
 
-function updateDisplay() {
-  document.getElementById('displayCount').innerText = data[currentZikir] || 0;
-  document.getElementById('activeTitle').innerText = "🌸 " + currentZikir;
-}
-
-function handleZikir() {
-  data[currentZikir] = (data[currentZikir] || 0) + 1;
-  if(navigator.vibrate) navigator.vibrate(45);
-  save(); updateDisplay();
+function update() {
+    document.getElementById('displayCount').innerText = data[activeZikir] || 0;
 }
 
-function resetCount() {
-  if(confirm("Bu zikri sıfırlamak istiyor musunuz?")) {
-    data[currentZikir] = 0; save(); updateDisplay();
-  }
+function inc() {
+    data[activeZikir] = (data[activeZikir] || 0) + 1;
+    if(navigator.vibrate) navigator.vibrate(50);
+    save(); update();
 }
 
-function save() {
-  localStorage.setItem('zikirData', JSON.stringify(data));
-  localStorage.setItem('customNames', JSON.stringify(customNames));
+function reset() { if(confirm("Sıfırlansın mı?")) { data[activeZikir]=0; save(); update(); } }
+function save() { 
+    localStorage.setItem('zData', JSON.stringify(data)); 
+    localStorage.setItem('zCust', JSON.stringify(customs));
 }
 
-function addNew() {
-  const name = document.getElementById('newZikir').value.trim();
-  if(name && !customNames.includes(name)) {
-    customNames.push(name); data[name] = 0;
-    save(); renderLists(); document.getElementById('newZikir').value = "";
-  }
+function addCustom() {
+    const n = document.getElementById('customName').value.trim();
+    if(n && !customs.includes(n)) {
+        customs.push(n); data[n] = 0; save(); render(); document.getElementById('customName').value="";
+    }
 }
 
-function renderLists() {
-  const esmalar = ["Er-Rahman", "Er-Rahim", "El-Melik", "El-Kuddüs", "Es-Selam", "El-Mü’min", "El-Müheymin", "El-Aziz"]; // Örnek liste
-  const eCont = document.getElementById('esmaContainer');
-  const cCont = document.getElementById('customContainer');
-  eCont.innerHTML = ""; cCont.innerHTML = "";
-
-  esmalar.forEach(n => createItem(n, eCont));
-  customNames.forEach(n => createItem(n, cCont));
+function render() {
+    const area = document.getElementById('listArea');
+    area.innerHTML = '<small style="opacity:0.4">99 ESMA-ÜL HÜSNA</small><br><br>';
+    esmalar.forEach(e => {
+        const d = document.createElement('div');
+        d.className = 'zikir-item';
+        d.innerHTML = `<span>${e.n}</span><small>${e.m}</small>`;
+        d.onclick = () => { activeZikir = e.n; document.getElementById('selName').innerText=e.n; document.getElementById('selMeaning').innerText=e.m; update(); toggleMenu(); };
+        area.appendChild(d);
+    });
+    area.innerHTML += '<br><small style="opacity:0.4">ÖZEL ZİKİRLER</small><br><br>';
+    customs.forEach(c => {
+        const d = document.createElement('div');
+        d.className = 'zikir-item';
+        d.innerHTML = `<span>${c}</span><small>Kişisel Zikir</small>`;
+        d.onclick = () => { activeZikir = c; document.getElementById('selName').innerText=c; document.getElementById('selMeaning').innerText="Kişisel Zikir"; update(); toggleMenu(); };
+        area.appendChild(d);
+    });
 }
 
-function createItem(name, container) {
-  const div = document.createElement('div');
-  div.className = 'item';
-  div.innerText = name;
-  div.onclick = () => { currentZikir = name; updateDisplay(); toggleSidebar(); };
-  container.appendChild(div);
-}
-
-renderLists(); updateDisplay();
+render(); update();
 </script>
-
 </body>
 </html>
