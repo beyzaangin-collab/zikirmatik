@@ -1,230 +1,237 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Beyza Zikirmatik</title>
 
 <style>
 :root{
-  --green:#6fbf9c;
-  --blue:#6faee6;
-  --pink:#e39ab8;
-  --gold:#e6c36f;
-  --purple:#b28be6;
-
-  --bg-green-dark:#0f1f18;
-  --bg-blue-dark:#0e1822;
-  --bg-pink-dark:#241018;
-  --bg-gold-dark:#1f1a0d;
-  --bg-purple-dark:#1b1322;
-
-  --main-color: var(--pink);
+  --bg:#f3b2c8;
+  --bg-dark:#3a2a33;
+  --device:#f7c6d6;
+  --screen:#000;
+  --text:#222;
+  --accent:#5fd3a1;
 }
 
-*{box-sizing:border-box}
 body{
   margin:0;
-  font-family:-apple-system,BlinkMacSystemFont;
-  background:#f5f5f5;
-  color:#111;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:var(--bg);
+  color:var(--text);
   transition:.3s;
-  touch-action:manipulation;
 }
 
-body.dark.green{background:var(--bg-green-dark);color:#fff}
-body.dark.blue{background:var(--bg-blue-dark);color:#fff}
-body.dark.pink{background:var(--bg-pink-dark);color:#fff}
-body.dark.gold{background:var(--bg-gold-dark);color:#fff}
-body.dark.purple{background:var(--bg-purple-dark);color:#fff}
-
-.menu-toggle{
-  position:fixed;
-  top:16px;
-  left:16px;
-  font-size:22px;
-  z-index:1001;
-  background:none;
-  border:none;
-  color:inherit;
+body.dark{
+  background:var(--bg-dark);
+  color:#f2f2f2;
 }
 
 header{
+  padding:18px;
+  font-size:28px;
+  font-weight:700;
   text-align:center;
-  padding:16px;
 }
 
-.drawer{
+.menu{
   position:fixed;
-  inset:0 auto 0 0;
-  width:70%;
-  max-width:260px;
-  background:rgba(255,255,255,.95);
-  backdrop-filter:blur(12px);
-  transform:translateX(-100%);
-  transition:.3s;
-  z-index:1000;
-  overflow:auto;
+  top:20px;
+  left:20px;
+  font-size:26px;
+  cursor:pointer;
+  z-index:10;
 }
-body.dark .drawer{background:rgba(20,20,20,.95)}
-.drawer.open{transform:translateX(0)}
 
-.drawer-item{
-  padding:12px 14px;
-  border-bottom:1px solid rgba(0,0,0,.08);
-  font-size:14px;
-}
-.drawer-item b{display:block}
-.drawer-item small{font-size:12px;opacity:.65}
-
-main{text-align:center;padding:20px}
-
-.zikirmatik{
+aside{
+  position:fixed;
+  left:-280px;
+  top:0;
   width:260px;
-  height:360px;
-  margin:24px auto;
-  border-radius:38px;
-  background:linear-gradient(145deg,rgba(255,255,255,.35),var(--main-color));
-  box-shadow:
-    0 18px 45px rgba(0,0,0,.45),
-    inset 0 1px 1px rgba(255,255,255,.5),
-    inset 0 -8px 16px rgba(0,0,0,.25),
-    0 0 30px color-mix(in srgb, var(--main-color) 60%, transparent);
-  backdrop-filter:blur(14px);
+  height:100%;
+  background:#fff;
+  padding:20px;
+  overflow:auto;
+  transition:.3s;
+  z-index:9;
+}
+body.dark aside{background:#2a1f26;color:#fff}
+aside.open{left:0}
+
+aside h3{margin-top:40px}
+
+aside .item{
+  padding:10px 0;
+  border-bottom:1px solid #ddd;
+  cursor:pointer;
+}
+aside small{opacity:.7}
+
+.main{
   display:flex;
   flex-direction:column;
   align-items:center;
-  justify-content:space-around;
+  gap:14px;
+}
+
+.esma{
+  text-align:center;
+}
+.esma h2{margin:0}
+.esma p{margin:4px 0 0;font-size:14px;opacity:.7}
+
+.device{
+  width:260px;
+  height:360px;
+  background:var(--device);
+  border-radius:36px;
+  box-shadow:
+    inset 0 6px 10px rgba(255,255,255,.6),
+    inset 0 -6px 12px rgba(0,0,0,.2),
+    0 25px 40px rgba(0,0,0,.35);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+  padding:22px 0 30px;
+  position:relative;
 }
 
 .screen{
-  width:170px;
-  height:64px;
-  background:#000;
-  border-radius:18px;
-  color:#3cff9a;
+  width:150px;
+  height:60px;
+  background:var(--screen);
+  border-radius:16px;
+  color:var(--accent);
+  font-size:34px;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:34px;
 }
 
-.zikir-btn{
-  width:120px;
-  height:120px;
+.button{
+  width:100px;
+  height:100px;
   border-radius:50%;
-  background:radial-gradient(circle at top left,rgba(255,255,255,.35),rgba(0,0,0,.85));
+  background:radial-gradient(circle at top,#666,#111);
   color:#fff;
   display:flex;
   align-items:center;
   justify-content:center;
+  font-size:20px;
+  cursor:pointer;
+  user-select:none;
 }
 
-.colors span{
-  width:18px;
-  height:18px;
-  border-radius:50%;
-  display:inline-block;
-  margin:6px;
+.tespih{
+  position:absolute;
+  bottom:8px;
+  font-size:22px;
+  opacity:.5;
 }
-.green{background:var(--green)}
-.blue{background:var(--blue)}
-.pink{background:var(--pink)}
-.gold{background:var(--gold)}
-.purple{background:var(--purple)}
+
+.colors{
+  display:flex;
+  gap:12px;
+}
+.color{
+  width:18px;height:18px;border-radius:50%;cursor:pointer
+}
+
+.toggle{
+  margin-top:8px;
+  padding:6px 14px;
+  border-radius:14px;
+  background:#fff;
+  font-size:13px;
+  cursor:pointer;
+}
+body.dark .toggle{background:#444}
+
 </style>
 </head>
 
-<body class="pink">
+<body>
 
-<button class="menu-toggle" id="menuBtn">☰</button>
+<div class="menu" onclick="toggleMenu()">☰</div>
 
-<header>
-  <h1>Beyza</h1>
-</header>
+<aside id="menu">
+  <h3>Esmaül Hüsna</h3>
 
-<div class="drawer" id="drawer"></div>
+  <div class="item" onclick="selectEsma('Ya Rahman','Çok merhamet eden')">
+    Ya Rahman<br><small>Çok merhamet eden</small>
+  </div>
+  <div class="item" onclick="selectEsma('Ya Rahim','Merhameti bol olan')">
+    Ya Rahim<br><small>Merhameti bol olan</small>
+  </div>
+  <div class="item" onclick="selectEsma('Ya Şafi','Şifa veren')">
+    Ya Şafi<br><small>Şifa veren</small>
+  </div>
 
-<main>
-  <h3 id="selectedEsma">Esma seç</h3>
-  <p id="meaning">Zikre başlamak için bir Esma seç</p>
+  <h3>Özel Zikir</h3>
+  <input id="custom" placeholder="Sadece isim" style="width:100%;padding:6px">
+  <button onclick="addCustom()" style="margin-top:6px">Ekle</button>
+</aside>
 
-  <div class="zikirmatik">
+<header>Beyza</header>
+
+<div class="main">
+
+  <div class="esma">
+    <h2 id="esmaName">Zikir seç</h2>
+    <p id="esmaDesc">Zikre başlamak için bir Esma seç</p>
+  </div>
+
+  <div class="device" id="device">
     <div class="screen" id="count">0</div>
-    <div class="zikir-btn" id="zikirBtn">Zikir</div>
+    <div class="button" onclick="inc()">Zikir</div>
+    <div class="tespih">📿</div>
   </div>
 
   <div class="colors">
-    <span class="green" onclick="setColor('green')"></span>
-    <span class="blue" onclick="setColor('blue')"></span>
-    <span class="pink" onclick="setColor('pink')"></span>
-    <span class="gold" onclick="setColor('gold')"></span>
-    <span class="purple" onclick="setColor('purple')"></span>
+    <div class="color" style="background:#5fd3a1" onclick="setColor('#5fd3a1')"></div>
+    <div class="color" style="background:#5bb3e6" onclick="setColor('#5bb3e6')"></div>
+    <div class="color" style="background:#f48fb1" onclick="setColor('#f48fb1')"></div>
+    <div class="color" style="background:#e6c15f" onclick="setColor('#e6c15f')"></div>
   </div>
 
-  <button onclick="toggleMode()">Dark / Light</button>
-</main>
+  <div class="toggle" onclick="toggleDark()">🌙 / ☀️</div>
+
+</div>
 
 <script>
-const esmalar=[
-["Ya Rahman","Çok merhamet eden"],
-["Ya Rahim","Merhameti bol olan"],
-["Ya Malik","Mülkün sahibi"],
-["Ya Kuddüs","Tertemiz olan"],
-["Ya Selam","Esenlik veren"],
-["Ya Mümin","Güven veren"],
-["Ya Aziz","Üstün güçlü"],
-["Ya Cebbar","Dilediğini yaptıran"],
-["Ya Gaffar","Çok affeden"],
-["Ya Rezzak","Rızık veren"],
-["Ya Alim","Her şeyi bilen"],
-["Ya Nur","Nurlandıran"],
-["Ya Hadi","Hidayet veren"],
-["Ya Sabur","Çok sabırlı"]
-];
+let count = localStorage.getItem("count") || 0;
+document.getElementById("count").innerText = count;
 
-let current=null,count=0;
-const drawer=document.getElementById("drawer");
-const menuBtn=document.getElementById("menuBtn");
-const countEl=document.getElementById("count");
-
-esmalar.forEach(e=>{
-  const d=document.createElement("div");
-  d.className="drawer-item";
-  d.innerHTML=`<b>${e[0]}</b><small>${e[1]}</small>`;
-  d.onclick=()=>selectEsma(e);
-  drawer.appendChild(d);
-});
-
-menuBtn.onclick=()=>{
-  drawer.classList.toggle("open");
-  menuBtn.textContent=drawer.classList.contains("open")?"✕":"☰";
-};
-
-function selectEsma(e){
-  current=e[0];
-  document.getElementById("selectedEsma").innerText=e[0];
-  document.getElementById("meaning").innerText=e[1];
-  count=+localStorage.getItem(e[0])||0;
-  countEl.innerText=count;
-  drawer.classList.remove("open");
-  menuBtn.textContent="☰";
+function inc(){
+  count++;
+  localStorage.setItem("count",count);
+  document.getElementById("count").innerText = count;
 }
 
-document.getElementById("zikirBtn").onclick=()=>{
-  if(!current)return;
-  count++;
-  localStorage.setItem(current,count);
-  countEl.innerText=count;
-};
+function toggleMenu(){
+  document.getElementById("menu").classList.toggle("open");
+}
+
+function selectEsma(n,a){
+  document.getElementById("esmaName").innerText = n;
+  document.getElementById("esmaDesc").innerText = a;
+  toggleMenu();
+}
+
+function addCustom(){
+  const v=document.getElementById("custom").value;
+  if(!v) return;
+  selectEsma(v,"");
+}
 
 function setColor(c){
-  document.body.className=document.body.className.replace(/\bgreen|blue|pink|gold|purple\b/g,"");
-  document.body.classList.add(c);
-  document.documentElement.style.setProperty("--main-color",getComputedStyle(document.querySelector("."+c)).backgroundColor);
+  document.documentElement.style.setProperty("--device",c);
+  document.documentElement.style.setProperty("--accent",c);
 }
 
-function toggleMode(){
+function toggleDark(){
   document.body.classList.toggle("dark");
 }
 </script>
