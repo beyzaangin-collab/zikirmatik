@@ -10,13 +10,17 @@
 body{
   margin:0;
   font-family:-apple-system,BlinkMacSystemFont,sans-serif;
-  background:#f4f4f4;
+  background:linear-gradient(180deg,#f7f7f7,#eaeaea);
   display:flex;
   justify-content:center;
   align-items:center;
   height:100vh;
   touch-action:manipulation;
-  transition:.3s;
+  transition:.4s;
+}
+body.dark{
+  background:linear-gradient(180deg,#0f0f14,#1b1f2a);
+  color:#fff;
 }
 body.dark{background:#0f0f0f;color:#fff}
 
@@ -57,17 +61,45 @@ h2{font-size:13px;font-weight:400;opacity:.7;margin-top:0}
 
 /* ZİKİRMATİK – DİJİTAL SAAT GİBİ (ESKİ HAL) */
 .zikirmatik{
-  width:180px;
-  height:240px;
-  border-radius:46px;
-  padding:14px;
-  background:#2e8b57;
+  width:185px;
+  height:250px;
+  border-radius:48px;
+  padding:16px;
+  background:linear-gradient(180deg,rgba(255,255,255,.25),rgba(0,0,0,.25)), #2e8b57;
   box-shadow:
-    inset 0 6px 8px rgba(255,255,255,.25),
-    inset 0 -8px 10px rgba(0,0,0,.45),
-    0 12px 22px rgba(0,0,0,.35);
+    inset 0 8px 10px rgba(255,255,255,.25),
+    inset 0 -10px 14px rgba(0,0,0,.5),
+    0 14px 26px rgba(0,0,0,.35);
   margin:auto;
   transition:.3s;
+}
+
+.screen{
+  background:radial-gradient(circle at top,#111,#000);
+  color:#00ff99;
+  font-family:'Courier New',monospace;
+  font-size:30px;
+  padding:12px 0;
+  border-radius:22px;
+  margin:18px 0 24px;
+  letter-spacing:2px;
+  box-shadow:
+    inset 0 0 12px rgba(0,0,0,.9),
+    0 0 8px rgba(0,255,153,.45);
+}
+
+.btn{
+  width:92px;
+  height:92px;
+  border-radius:50%;
+  border:none;
+  font-size:15px;
+  background:radial-gradient(circle at top,#2a2a2a,#000);
+  color:#fff;
+  box-shadow:
+    inset 0 6px 8px rgba(255,255,255,.15),
+    inset 0 -10px 14px rgba(0,0,0,.75),
+    0 8px 14px rgba(0,0,0,.6);
 }
 
 /* DİJİTAL SAAT EKRANI */
