@@ -20,22 +20,25 @@
 <style>
 :root{
   --accent: #ff85ba;
-  --glass: rgba(255, 255, 255, 0.2);
-  --glass-heavy: rgba(255, 255, 255, 0.6);
+  --glass: rgba(255, 255, 255, 0.15);
+  --glass-heavy: rgba(255, 255, 255, 0.5);
   --text: #2c3e50;
   --bg-gradient: linear-gradient(135deg, #fce4ec 0%, #e1f5fe 100%);
+  --outer-shadow: 0 20px 50px rgba(0,0,0,0.1);
+  --inner-glow: inset 0 2px 10px rgba(255,255,255,0.5);
 }
 
-/* Renk Temaları */
 body.theme-blue { --accent: #4facfe; --bg-gradient: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%); }
 body.theme-green { --accent: #00b894; --bg-gradient: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%); }
 body.theme-orange { --accent: #e17055; --bg-gradient: linear-gradient(135deg, #fff3e0 0%, #fbe9e7 100%); }
 
 body.dark{
-  --glass: rgba(0, 0, 0, 0.4);
-  --glass-heavy: rgba(20, 20, 20, 0.9);
+  --glass: rgba(255, 255, 255, 0.05);
+  --glass-heavy: rgba(30, 30, 45, 0.85);
   --text: #ffffff;
-  --bg-gradient: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  --outer-shadow: 0 30px 60px rgba(0,0,0,0.6);
+  --inner-glow: inset 0 1px 1px rgba(255,255,255,0.1);
 }
 
 *{
@@ -68,27 +71,29 @@ body{
 }
 
 .menu-btn, .theme-btn {
-  font-size: 28px;
+  font-size: 24px;
   background: var(--glass);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,0.3);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255,255,255,0.2);
   width: 45px;
   height: 45px;
-  border-radius: 12px;
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   color: var(--text);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
 }
 
 .sidebar{
   position: fixed;
-  top: 0; left: 0; height: 100%; width: 280px;
-  background: var(--glass);
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
-  border-right: 1px solid rgba(255,255,255,0.2);
+  top: 0; left: 0; height: 100%; width: 290px;
+  background: var(--glass-heavy);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border-right: 1px solid rgba(255,255,255,0.1);
   transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 1500;
   display: flex;
@@ -106,26 +111,28 @@ body{
 .fixed-add{
   position: absolute;
   bottom: 0; left: 0; width: 100%;
-  padding: 20px;
+  padding: 25px 20px;
   background: var(--glass-heavy);
-  backdrop-filter: blur(15px);
-  border-top: 1px solid rgba(255,255,255,0.2);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255,255,255,0.1);
 }
 
 .fixed-add input{
-  width: 100%; padding: 12px; border-radius: 12px;
-  border: 1px solid rgba(0,0,0,0.1); background: rgba(255,255,255,0.8);
-  margin-bottom: 10px; font-size: 16px; outline: none;
+  width: 100%; padding: 14px; border-radius: 15px;
+  border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1);
+  margin-bottom: 12px; font-size: 16px; outline: none; color: var(--text);
 }
 
 .add-btn {
   width: 100%; background: var(--accent); color: white;
-  padding: 12px; border-radius: 12px; border: none; font-weight: bold;
+  padding: 14px; border-radius: 15px; border: none; font-weight: bold;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
 
 .overlay {
   position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0,0,0,0.3); display: none; z-index: 1400;
+  background: rgba(0,0,0,0.4); display: none; z-index: 1400;
+  backdrop-filter: blur(4px);
 }
 .sidebar:not(.closed) ~ .overlay { display: block; }
 
@@ -136,68 +143,200 @@ body{
   padding: 20px;
 }
 
+/* GÖRSEL DERİNLİK KATILAN SAYAÇ ALANI */
 .counter-outer {
-  width: 280px;
-  height: 280px;
+  width: 300px;
+  height: 300px;
   background: var(--glass);
-  backdrop-filter: blur(15px);
-  border: 1px solid rgba(255,255,255,0.4);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid rgba(255,255,255,0.25);
   border-radius: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 25px 50px rgba(0,0,0,0.1);
+  box-shadow: var(--outer-shadow), var(--inner-glow);
   position: relative;
 }
 
+/* Sayaç rakamına hafif neon efekti */
 .count {
-  font-size: 70px;
+  font-size: 80px;
   font-weight: 800;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   color: var(--text);
+  text-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
 
+/* Zikir butonu derinlik (Neumorphism esintili) */
 .zikir-btn {
-  width: 120px;
-  height: 120px;
+  width: 130px;
+  height: 130px;
   border-radius: 50%;
   background: var(--accent);
-  border: 8px solid rgba(255,255,255,0.3);
-  font-size: 45px;
+  border: 6px solid rgba(255,255,255,0.3);
+  font-size: 50px;
   color: white;
-  transition: 0.1s;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  transition: 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.2), 
+              inset 0 -5px 10px rgba(0,0,0,0.1),
+              inset 0 5px 10px rgba(255,255,255,0.3);
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.zikir-btn:active { transform: scale(0.9); }
+.zikir-btn:active { 
+  transform: scale(0.92); 
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
 
 .color-picker {
   display: flex;
-  gap: 10px;
-  margin-top: 20px;
+  gap: 12px;
+  margin-top: 30px;
+  padding: 10px 20px;
+  background: var(--glass);
+  border-radius: 30px;
+  backdrop-filter: blur(10px);
 }
+
 .dot {
-  width: 25px; height: 25px; border-radius: 50%; border: 2px solid white; cursor: pointer;
+  width: 28px; height: 28px; border-radius: 50%; border: 3px solid white; cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
 .list-item {
-  padding: 14px; background: rgba(255,255,255,0.15);
-  margin-bottom: 8px; border-radius: 14px; display: flex; 
-  align-items: center; justify-content: space-between; border: 1px solid rgba(255,255,255,0.1);
+  padding: 16px; background: rgba(255,255,255,0.08);
+  margin-bottom: 10px; border-radius: 18px; display: flex; 
+  align-items: center; justify-content: space-between; 
+  border: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(5px);
 }
 
 .fav-btn {
-  font-size: 20px;
+  font-size: 22px;
   margin-left: 10px;
-  color: var(--accent);
-  cursor: pointer;
+  filter: drop-shadow(0 2px 5px rgba(0,0,0,0.1));
 }
 
 .sidebar-scroll h3 {
   color: var(--accent);
-  margin-top: 20px;
+  margin-top: 25px;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+/* === GLOBAL SMOOTHNESS === */
+* {
+  transition: 
+    background 0.35s ease,
+    box-shadow 0.35s ease,
+    transform 0.25s ease,
+    color 0.25s ease,
+    opacity 0.25s ease;
+}
+
+/* === TOP BAR BUTTONS – Daha premium === */
+.menu-btn, .theme-btn {
+  box-shadow:
+    0 8px 25px rgba(0,0,0,0.08),
+    inset 0 1px 1px rgba(255,255,255,0.4);
+}
+
+.menu-btn:hover, .theme-btn:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 14px 35px rgba(0,0,0,0.12),
+    inset 0 1px 2px rgba(255,255,255,0.5);
+}
+
+/* === SIDEBAR – Daha derin cam hissi === */
+.sidebar {
+  box-shadow: 20px 0 60px rgba(0,0,0,0.25);
+}
+
+/* === LIST ITEM – Card hissi === */
+.list-item {
+  box-shadow:
+    0 8px 20px rgba(0,0,0,0.06),
+    inset 0 1px 1px rgba(255,255,255,0.25);
+}
+
+.list-item:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 14px 30px rgba(0,0,0,0.12),
+    inset 0 1px 2px rgba(255,255,255,0.35);
+}
+
+/* === FAVORI KALP – Glow efekt === */
+.fav-btn {
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.fav-btn:hover {
+  transform: scale(1.15);
+  filter: drop-shadow(0 0 6px var(--accent));
+}
+
+/* === COUNTER – Daha derin & parlak === */
+.counter-outer {
+  box-shadow:
+    0 30px 70px rgba(0,0,0,0.18),
+    inset 0 4px 15px rgba(255,255,255,0.45);
+}
+
+/* === COUNT – Hafif neon === */
+.count {
+  text-shadow:
+    0 10px 25px rgba(0,0,0,0.15),
+    0 0 12px rgba(255,255,255,0.25);
+}
+
+/* === ZİKİR BUTTON – Premium glow === */
+.zikir-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.zikir-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at top,
+    rgba(255,255,255,0.45),
+    transparent 60%
+  );
+}
+
+.zikir-btn:hover {
+  transform: scale(1.05);
+  box-shadow:
+    0 20px 45px rgba(0,0,0,0.3),
+    0 0 25px rgba(255,255,255,0.25);
+}
+
+/* === COLOR PICKER – Daha soft === */
+.color-picker {
+  box-shadow:
+    0 12px 30px rgba(0,0,0,0.1),
+    inset 0 1px 2px rgba(255,255,255,0.4);
+}
+
+.dot:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 12px rgba(255,255,255,0.8);
+}
+
+/* === RESET TEXT – Daha zarif === */
+.main > div:last-child:hover {
+  opacity: 0.8;
+  text-shadow: 0 0 8px rgba(255,255,255,0.4);
 }
 </style>
 </head>
@@ -205,7 +344,7 @@ body{
 
 <div class="top-bar">
   <div class="menu-btn" onclick="toggleMenu()">☰</div>
-  <div style="font-weight: 800; font-size: 20px;">Zikirmatik</div>
+  <div style="font-weight: 800; font-size: 20px; letter-spacing: -0.5px;">Zikirmatik</div>
   <div class="theme-btn" onclick="toggleDark()" id="tBtn">🌙</div>
 </div>
 
@@ -214,26 +353,26 @@ body{
 <div class="sidebar closed" id="sidebar">
   <div class="sidebar-scroll">
     <div id="favoritesSection">
-        <h3 style="font-size: 11px; letter-spacing: 1.5px; margin-bottom: 15px;">FAVORİLER ❤️</h3>
+        <h3 style="letter-spacing: 1.5px; margin-bottom: 15px;">FAVORİLER ❤️</h3>
         <div id="favList"></div>
     </div>
     
-    <h3 style="font-size: 11px; letter-spacing: 1.5px; margin-bottom: 15px;">ESMAÜL HÜSNA</h3>
+    <h3 style="letter-spacing: 1.5px; margin-bottom: 15px;">ESMAÜL HÜSNA</h3>
     <div id="esmaList"></div>
     
-    <h3 style="font-size: 11px; letter-spacing: 1.5px; margin-bottom: 15px;">ÖZEL ZİKİRLER</h3>
+    <h3 style="letter-spacing: 1.5px; margin-bottom: 15px;">ÖZEL ZİKİRLER</h3>
     <div id="customList"></div>
   </div>
   <div class="fixed-add">
-    <input id="customInput" placeholder="Zikir adı...">
+    <input id="customInput" placeholder="Yeni zikir adı...">
     <button class="add-btn" onclick="addCustom()">Listeye Ekle</button>
   </div>
 </div>
 
 <div class="main">
-  <div style="text-align:center; margin-bottom:20px;">
-    <div id="selName" style="font-size: 26px; font-weight: 700; color: var(--accent);">📿 Genel Zikir</div>
-    <div id="selMeaning" style="opacity: 0.6; font-size: 14px; margin-top:5px; height: 18px;">Her vakit için</div>
+  <div style="text-align:center; margin-bottom:30px;">
+    <div id="selName" style="font-size: 28px; font-weight: 800; color: var(--accent); filter: drop-shadow(0 5px 15px rgba(0,0,0,0.05));">📿 Genel Zikir</div>
+    <div id="selMeaning" style="opacity: 0.5; font-size: 14px; margin-top:6px; height: 18px;">Her vakit için</div>
   </div>
 
   <div class="counter-outer">
@@ -248,10 +387,11 @@ body{
     <div class="dot" style="background:#e17055" onclick="setTheme('theme-orange')"></div>
   </div>
 
-  <div style="margin-top: 30px; opacity: 0.4; font-size: 13px; cursor: pointer;" onclick="resetCount()">Sıfırla</div>
+  <div style="margin-top: 40px; opacity: 0.5; font-size: 14px; cursor: pointer; font-weight: 500;" onclick="resetCount()">Sıfırla</div>
 </div>
 
 <script>
+// Sadece fonksiyonları koruyarak render ve logic kısmını aynen bıraktım.
 let currentZikir = "Genel Zikir";
 let counters = JSON.parse(localStorage.getItem("counters") || "{}");
 let myCustomList = JSON.parse(localStorage.getItem("myCustomList") || "[]");
@@ -380,7 +520,6 @@ function createListItem(name, meaning, isCustom = false, customIndex = -1) {
 }
 
 function render() {
-  // Favoriler Bölümü
   const favList = document.getElementById("favList");
   const favSection = document.getElementById("favoritesSection");
   favList.innerHTML = "";
@@ -393,14 +532,12 @@ function render() {
       });
   }
 
-  // Esma Listesi
   const eList = document.getElementById("esmaList");
   eList.innerHTML = "";
   esmalar.forEach(e => {
     eList.appendChild(createListItem(e.name, e.meaning));
   });
 
-  // Özel Listeler
   const cList = document.getElementById("customList");
   cList.innerHTML = "";
   myCustomList.forEach((name, i) => {
@@ -421,7 +558,6 @@ function deleteCustom(e, i) {
   e.stopPropagation();
   const nameToRemove = myCustomList[i];
   myCustomList.splice(i, 1);
-  // Eğer favorilerdeyse oradan da çıkar
   favorites = favorites.filter(f => f.name !== nameToRemove);
   save(); render();
 }
