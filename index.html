@@ -162,12 +162,23 @@ body{
 
 /* Sayaç rakamına hafif neon efekti */
 .count {
-  font-size: 80px;
+  font-size: 32px;            /* Rakam boyutu kibarlaştı */
   font-weight: 800;
-  margin-bottom: 5px;
+  padding: 10px 25px;         /* Dikdörtgenin iç boşluğu */
+  background: var(--glass);   /* Şeffaf cam efekti */
+  border: 1px solid rgba(255,255,255,0.2); /* İnce sınır hattı */
+  border-radius: 18px;        /* Yumuşak köşeler (Squircle) */
   color: var(--text);
-  text-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  margin-bottom: 25px;        /* Butonla aradaki mesafe */
+  box-shadow: 
+    0 10px 20px rgba(0,0,0,0.05), 
+    inset 0 0 10px rgba(255,255,255,0.1); /* Hafif iç derinlik */
+  min-width: 100px;           /* Sayı tek haneliyken çok daralmaması için */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
+
 
 /* Zikir butonu derinlik (Neumorphism esintili) */
 .zikir-btn {
@@ -353,7 +364,7 @@ body{
 <div class="sidebar closed" id="sidebar">
   <div class="sidebar-scroll">
     <div id="favoritesSection">
-        <h3 style="letter-spacing: 1.5px; margin-bottom: 15px;">FAVORİLER ❤️</h3>
+        <h3 style="letter-spacing: 1.5px; margin-bottom: 15px;">FAVORİLER 🩷</h3>
         <div id="favList"></div>
     </div>
     
@@ -464,7 +475,17 @@ function save() {
   localStorage.setItem("favorites", JSON.stringify(favorites));
 }
 
-function updateUI() { document.getElementById("count").innerText = counters[currentZikir] || 0; }
+function updateUI() { 
+    let val = counters[currentZikir] || 0;
+    
+    // Sayı 1000'i geçerse kısalt, geçmezse normal göster
+    if (val >= 1000) {
+        val = (val / 1000).toFixed(1) + 'k';
+    }
+    
+    document.getElementById("count").innerText = val; 
+}
+
 
 function selectZikir(name, meaning = "") {
   currentZikir = name;
@@ -512,7 +533,7 @@ function createListItem(name, meaning, isCustom = false, customIndex = -1) {
         <div style="display:flex; align-items:center">
             ${isCustom ? `<span style="margin-right:15px; opacity:0.3" onclick="deleteCustom(event, ${customIndex})">✕</span>` : ''}
             <span class="fav-btn" onclick="toggleFav(event, ${JSON.stringify(zikirObj).replace(/"/g, '&quot;')})">
-                ${isFav ? '❤️' : '♡'}
+                ${isFav ? '♥' : '♡'}
             </span>
         </div>
     `;
