@@ -162,18 +162,16 @@ body{
 
 /* Sayaç rakamına hafif neon efekti */
 .count {
-  font-size: 32px;            /* Rakam boyutu kibarlaştı */
+  font-size: 30px;            /* Rakamı biraz daha büyüttük */
   font-weight: 800;
-  padding: 10px 25px;         /* Dikdörtgenin iç boşluğu */
-  background: var(--glass);   /* Şeffaf cam efekti */
-  border: 1px solid rgba(255,255,255,0.2); /* İnce sınır hattı */
-  border-radius: 18px;        /* Yumuşak köşeler (Squircle) */
+  padding: 15px 40px;         /* Üst-alt 15px, sağ-sol 40px yaparak alanı genişlettik */
+  background: var(--glass);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 20px;
   color: var(--text);
-  margin-bottom: 25px;        /* Butonla aradaki mesafe */
-  box-shadow: 
-    0 10px 20px rgba(0,0,0,0.05), 
-    inset 0 0 10px rgba(255,255,255,0.1); /* Hafif iç derinlik */
-  min-width: 100px;           /* Sayı tek haneliyken çok daralmaması için */
+  margin-bottom: 25px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05), inset 0 0 10px rgba(255,255,255,0.1);
+  min-width: 180px;           /* Burayı 100'den 180'e çıkardık (Daha geniş oldu) */
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -407,6 +405,7 @@ let currentZikir = "Genel Zikir";
 let counters = JSON.parse(localStorage.getItem("counters") || "{}");
 let myCustomList = JSON.parse(localStorage.getItem("myCustomList") || "[]");
 let favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+let savedTheme = localStorage.getItem("selectedTheme") || "";
 
 const esmalar = [
   {name:"Er-Rahman",meaning:"Sonsuz merhamet sahibi"}, {name:"Er-Rahim",meaning:"Merhameti bol"},
@@ -463,10 +462,19 @@ const esmalar = [
 function toggleMenu() { document.getElementById("sidebar").classList.toggle("closed"); }
 function toggleDark() { 
   document.body.classList.toggle("dark");
-  document.getElementById("tBtn").innerText = document.body.classList.contains("dark") ? "☀️" : "🌙";
+  const isDark = document.body.classList.contains("dark");
+  document.getElementById("tBtn").innerText = isDark ? "☀️" : "🌙";
+  localStorage.setItem("isDarkMode", isDark); // Karanlık mod bilgisini 
+  }
+  if (localStorage.getItem("isDarkMode") === "true") {
+    document.body.classList.add("dark");
+    document.getElementById("tBtn").innerText = "☀️";
 }
+
+
 function setTheme(t) {
   document.body.className = document.body.classList.contains("dark") ? "dark " + t : t;
+  localStorage.setItem("selectedTheme", t); // Temayı hafızaya kaydeder
 }
 
 function save() {
@@ -475,16 +483,12 @@ function save() {
   localStorage.setItem("favorites", JSON.stringify(favorites));
 }
 
-function updateUI() { 
+    function updateUI() { 
     let val = counters[currentZikir] || 0;
-    
-    // Sayı 1000'i geçerse kısalt, geçmezse normal göster
-    if (val >= 1000) {
-        val = (val / 1000).toFixed(1) + 'k';
-    }
-    
-    document.getElementById("count").innerText = val; 
+    // Türkiye formatında noktayla ayırır: 1.250
+    document.getElementById("count").innerText = val.toLocaleString('tr-TR'); 
 }
+
 
 
 function selectZikir(name, meaning = "") {
@@ -583,7 +587,9 @@ function deleteCustom(e, i) {
   save(); render();
 }
 
-render(); updateUI();
+render(); updateUI();  // Sayfa açıldığında kayıtlı temayı uygula
+setTheme(savedTheme);
+
 </script>
 </body>
 </html>
