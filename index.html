@@ -138,16 +138,16 @@ body{
 
 .main {
   width: 100%; 
-  height: 100%;
+  height: 100vh; /* Ekranın tam yüksekliğini kaplasın */
   display: flex; 
   flex-direction: column;
   align-items: center; 
-  padding: 40px 20px 30px 20px; /* Üst barla mesafeyi koruduk */
+  justify-content: space-between; /* Elemanları alt ve üst sınırlara dengeli dağıtır 🎯 */
+  padding: 100px 20px 40px 20px; /* Üst ve alt barlardan güvenli premium boşluk */
   overflow-y: auto; 
   scrollbar-width: none; 
 }
 .main::-webkit-scrollbar { display: none; }
-
 
 /* GÖRSEL DERİNLİK KATILAN SAYAÇ ALANI */
 
@@ -165,7 +165,7 @@ body{
   justify-content: center;
   box-shadow: var(--outer-shadow), var(--inner-glow);
   position: relative;
-  margin: auto 0; /* Boşluğa göre sayacı otomatik ortalar veya aşağı iter 🎯 */
+  margin: 20px 0; /* auto yerine sabit tatlı bir alt-üst boşluk verdik */
 }
 
 /* Sayaç rakamına hafif neon efekti */
