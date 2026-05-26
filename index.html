@@ -373,7 +373,8 @@ body{
     <div id="customList"></div>
   </div>
   <div class="fixed-add">
-    <input id="customInput" placeholder="Yeni zikir adı...">
+<input id="customName" placeholder="Zikir adı">
+<input id="customMeaning" placeholder="Açıklama"> 
     <button class="add-btn" onclick="addCustom()">Listeye Ekle</button>
   </div>
 </div>
@@ -571,18 +572,22 @@ function render() {
 }
 
 function addCustom() {
-  const inp = document.getElementById("customInput");
-  const val = inp.value.trim();
+  const name = document.getElementById("customName").value.trim();
+  const meaning = document.getElementById("customMeaning").value.trim();
 
-  if(val && !myCustomList.some(z => z.name === val)) {
+  if(name && !myCustomList.some(z => z.name === name)) {
     myCustomList.push({
-      name: val,
-      meaning: "Özel açıklama"
+      name: name,
+      meaning: meaning || "Özel zikir"
     });
-    save(); render(); inp.value = "";
+
+    save();
+    render();
+
+    document.getElementById("customName").value = "";
+    document.getElementById("customMeaning").value = "";
   }
 }
-
 
 function deleteCustom(e, i) {
   e.stopPropagation();
