@@ -142,11 +142,15 @@ body{
   display: flex; 
   flex-direction: column;
   align-items: center; 
-  justify-content: flex-start; /* Elemanları serbest bırak, üstten başlasınlar */
-  padding: 80px 20px 40px 20px; 
+  justify-content: flex-start; 
+  padding: 100px 20px 40px 20px; /* Ekranın en tepesinden başlığı aşağı indirdik */
   overflow-y: auto; 
   scrollbar-width: none; 
+  
+  /* 🎯 İŞTE SİHİRLİ DOKUNUŞ: Elemanların arasındaki mesafeyi sabitler */
+  gap: 20px; 
 }
+.main::-webkit-scrollbar { display: none; }
 
 /* GÖRSEL DERİNLİK KATILAN SAYAÇ ALANI */
 
@@ -164,10 +168,7 @@ body{
   justify-content: center;
   box-shadow: var(--outer-shadow), var(--inner-glow);
   position: relative;
-  
-  /* 🎯 MANUEL BOŞLUK BURASI: Sayacı yukarıdan aşağıya doğru iter */
-  margin-top: 60px; 
-  margin-bottom: 20px; /* Altındaki renk paletiyle mesafesi */
+  margin: 0; /* Ekstra manuel boşlukları sıfırladık 🎯 */
 }
 
 /* Sayaç rakamına hafif neon efekti */
