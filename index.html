@@ -523,25 +523,52 @@ function toggleFav(e, zikirObj) {
     render();
 }
 
+
 function createListItem(name, meaning, isCustom = false, customIndex = -1) {
     const d = document.createElement("div");
     d.className = "list-item";
-    
+
     const isFav = favorites.some(f => f.name === name);
     const zikirObj = { name, meaning, isCustom };
 
-    d.innerHTML = `
-        <div style="flex:1" onclick="selectZikir('${name}', '${meaning}')">
-            <div style="font-weight:600">${name}</div>
-            <div style="font-size:10px; opacity:0.6">${meaning}</div>
-        </div>
-        <div style="display:flex; align-items:center">
-            ${isCustom ? `<span style="margin-right:15px; opacity:0.3" onclick="deleteCustom(event, ${customIndex})">✕</span>` : ''}
-            <span class="fav-btn" onclick="toggleFav(event, ${JSON.stringify(zikirObj).replace(/"/g, '&quot;')})">
-                ${isFav ? '♥' : '♡'}
-            </span>
-        </div>
+    // 👇 SOL TARAF (TIKLANAN ALAN)
+    const left = document.createElement("div");
+    left.style.flex = "1";
+
+    left.innerHTML = `
+        <div style="font-weight:600">${name}</div>
+        <div style="font-size:10px; opacity:0.6">${meaning}</div>
     `;
+
+    // 🔥 İŞTE SENİN SORDUĞUN YER BURASI
+    left.addEventListener("click", () => {
+        selectZikir(name, meaning);
+    });
+
+    // 👉 SAĞ TARAF
+    const right = document.createElement("div");
+    right.style.display = "flex";
+    right.style.alignItems = "center";
+
+    if (isCustom) {
+        const del = document.createElement("span");
+        del.innerText = "✕";
+        del.style.marginRight = "15px";
+        del.style.opacity = "0.3";
+        del.onclick = (e) => deleteCustom(e, customIndex);
+        right.appendChild(del);
+    }
+
+    const fav = document.createElement("span");
+    fav.className = "fav-btn";
+    fav.innerText = isFav ? "♥" : "♡";
+    fav.onclick = (e) => toggleFav(e, zikirObj);
+
+    right.appendChild(fav);
+
+    d.appendChild(left);
+    d.appendChild(right);
+
     return d;
 }
 
@@ -575,7 +602,7 @@ function addCustom() {
   const name = document.getElementById("customName").value.trim();
   const meaning = document.getElementById("customMeaning").value.trim();
 
-  if(name && !myCustomList.some(z => z.name === name)) {
+if(name && !myCustomList.some(z => z.name === name))
     myCustomList.push({
       name: name,
       meaning: meaning || "Özel zikir"
