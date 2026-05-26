@@ -565,23 +565,28 @@ function render() {
 
   const cList = document.getElementById("customList");
   cList.innerHTML = "";
-  myCustomList.forEach((name, i) => {
-    cList.appendChild(createListItem(name, "Özel Zikir", true, i));
-  });
+  myCustomList.forEach((zikir, i) => {
+  cList.appendChild(createListItem(zikir.name, zikir.meaning, true, i));
+});
 }
 
 function addCustom() {
   const inp = document.getElementById("customInput");
   const val = inp.value.trim();
-  if(val && !myCustomList.includes(val)) {
-    myCustomList.push(val);
+
+  if(val && !myCustomList.some(z => z.name === val)) {
+    myCustomList.push({
+      name: val,
+      meaning: "Özel açıklama"
+    });
     save(); render(); inp.value = "";
   }
 }
 
+
 function deleteCustom(e, i) {
   e.stopPropagation();
-  const nameToRemove = myCustomList[i];
+  const nameToRemove = myCustomList[i].name;
   myCustomList.splice(i, 1);
   favorites = favorites.filter(f => f.name !== nameToRemove);
   save(); render();
