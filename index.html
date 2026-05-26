@@ -136,12 +136,18 @@ body{
 }
 .sidebar:not(.closed) ~ .overlay { display: block; }
 
-.main{
-  width: 100%; height: 100%;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  padding: 20px;
+.main {
+  width: 100%; 
+  height: 100%;
+  display: flex; 
+  flex-direction: column;
+  align-items: center; 
+  justify-content: flex-start; /* Ortalamak yerine yukarıdan başlatıp esneteceğiz */
+  padding: 90px 20px 30px 20px; /* Üst barın altında kalmasın diye padding artırıldı */
+  overflow-y: auto; /* Yazı çok uzarsa ekranın kayabilmesi sağlandı */
+  scrollbar-width: none; /* Tarayıcı scroll barını gizler */
 }
+.main::-webkit-scrollbar { display: none; } /* Chrome/Safari için scroll gizleme */
 
 /* GÖRSEL DERİNLİK KATILAN SAYAÇ ALANI */
 .counter-outer {
@@ -158,7 +164,8 @@ body{
   justify-content: center;
   box-shadow: var(--outer-shadow), var(--inner-glow);
   position: relative;
-  margin-top: 15px; /* Sayacı biraz aşağı indirmek için eklendi */
+  margin: 10px 0;⁠
+ /* Sayacı biraz aşağı indirmek için eklendi */
 }
 
 /* Sayaç rakamına hafif neon efekti */
@@ -381,11 +388,11 @@ body{
 </div>
 
 <div class="main">
-  <div style="text-align:center; margin-bottom:30px;">
-    <div id="selName" style="font-size: 28px; font-weight: 800; color: var(--accent); filter: drop-shadow(0 5px 15px rgba(0,0,0,0.05));">📿 Genel Zikir</div>
-<div id="selMeaning" style="opacity: 0.7; font-size: 14px; margin-top: 8px; max-width: 320px; word-wrap: break-word; white-space: normal; line-height: 1.4;">Her vakit için</div>
+   <div style="text-align:center; margin-bottom:20px; width: 100%; max-width: 340px;">
+    <div id="selName" style="font-size: 28px; font-weight: 800; color: var(--accent); filter: drop-shadow(0 5px 15px rgba(0,0,0,0.05)); word-wrap: break-word;">📿 Genel Zikir</div>
+    <div id="selMeaning" style="opacity: 0.7; font-size: 14px; margin-top:10px; min-height: 18px; word-wrap: break-word; white-space: normal; line-height: 1.5; display: block;">Her vakit için</div>
   </div>
-
+  
   <div class="counter-outer">
     <div class="count" id="count">0</div>
     <button class="zikir-btn" onclick="inc()">🌸</button>
