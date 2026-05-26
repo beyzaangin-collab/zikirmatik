@@ -142,14 +142,15 @@ body{
   display: flex; 
   flex-direction: column;
   align-items: center; 
-  justify-content: flex-start; /* Ortalamak yerine yukarıdan başlatıp esneteceğiz */
-  padding: 90px 20px 30px 20px; /* Üst barın altında kalmasın diye padding artırıldı */
-  overflow-y: auto; /* Yazı çok uzarsa ekranın kayabilmesi sağlandı */
-  scrollbar-width: none; /* Tarayıcı scroll barını gizler */
+  padding: 40px 20px 30px 20px; /* Üst barla mesafeyi koruduk */
+  overflow-y: auto; 
+  scrollbar-width: none; 
 }
-.main::-webkit-scrollbar { display: none; } /* Chrome/Safari için scroll gizleme */
+.main::-webkit-scrollbar { display: none; }
+
 
 /* GÖRSEL DERİNLİK KATILAN SAYAÇ ALANI */
+
 .counter-outer {
   width: 300px;
   height: 300px;
@@ -164,8 +165,7 @@ body{
   justify-content: center;
   box-shadow: var(--outer-shadow), var(--inner-glow);
   position: relative;
-  margin: 10px 0;⁠
- /* Sayacı biraz aşağı indirmek için eklendi */
+  margin: auto 0; /* Boşluğa göre sayacı otomatik ortalar veya aşağı iter 🎯 */
 }
 
 /* Sayaç rakamına hafif neon efekti */
@@ -213,11 +213,13 @@ body{
 .color-picker {
   display: flex;
   gap: 12px;
-  margin-top: 30px;
+  margin-top: 20px;
+  margin-bottom: 15px; /* Altındaki sıfırla butonuyla mesafeyi korur */
   padding: 10px 20px;
   background: var(--glass);
   border-radius: 30px;
   backdrop-filter: blur(10px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.1), inset 0 1px 2px rgba(255,255,255,0.4);
 }
 
 .dot {
