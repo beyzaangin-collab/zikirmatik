@@ -401,7 +401,6 @@ body{
 </div>
 
 <script>
-// Sadece fonksiyonları koruyarak render ve logic kısmını aynen bıraktım.
 let currentZikir = "Genel Zikir";
 let counters = JSON.parse(localStorage.getItem("counters") || "{}");
 let myCustomList = JSON.parse(localStorage.getItem("myCustomList") || "[]");
@@ -461,21 +460,24 @@ const esmalar = [
 ];
 
 function toggleMenu() { document.getElementById("sidebar").classList.toggle("closed"); }
+
 function toggleDark() { 
   document.body.classList.toggle("dark");
   const isDark = document.body.classList.contains("dark");
   document.getElementById("tBtn").innerText = isDark ? "☀️" : "🌙";
-  localStorage.setItem("isDarkMode", isDark); // Karanlık mod bilgisini 
-  }
-  if (localStorage.getItem("isDarkMode") === "true") {
-    document.body.classList.add("dark");
-    document.getElementById("tBtn").innerText = "☀️";
+  localStorage.setItem("isDarkMode", isDark);
 }
 
+// Sayfa ilk yüklendiğinde karanlık mod kontrolü
+if (localStorage.getItem("isDarkMode") === "true") {
+    document.body.classList.add("dark");
+    const tBtn = document.getElementById("tBtn");
+    if(tBtn) tBtn.innerText = "☀️";
+}
 
 function setTheme(t) {
   document.body.className = document.body.classList.contains("dark") ? "dark " + t : t;
-  localStorage.setItem("selectedTheme", t); // Temayı hafızaya kaydeder
+  localStorage.setItem("selectedTheme", t);
 }
 
 function save() {
@@ -484,13 +486,10 @@ function save() {
   localStorage.setItem("favorites", JSON.stringify(favorites));
 }
 
-    function updateUI() { 
-    let val = counters[currentZikir] || 0;
-    // Türkiye formatında noktayla ayırır: 1.250
-    document.getElementById("count").innerText = val.toLocaleString('tr-TR'); 
+function updateUI() { 
+  let val = counters[currentZikir] || 0;
+  document.getElementById("count").innerText = val.toLocaleString('tr-TR'); 
 }
-
-
 
 function selectZikir(name, meaning = "") {
   currentZikir = name;
@@ -512,64 +511,58 @@ function resetCount() {
 }
 
 function toggleFav(e, zikirObj) {
-    e.stopPropagation();
-    const index = favorites.findIndex(f => f.name === zikirObj.name);
-    if (index > -1) {
-        favorites.splice(index, 1);
-    } else {
-        favorites.push(zikirObj);
-    }
-    save();
-    render();
+  e.stopPropagation();
+  const index = favorites.findIndex(f => f.name === zikirObj.name);
+  if (index > -1) {
+      favorites.splice(index, 1);
+  } else {
+      favorites.push(zikirObj);
+  }
+  save();
+  render();
 }
 
-
 function createListItem(name, meaning, isCustom = false, customIndex = -1) {
-    const d = document.createElement("div");
-    d.className = "list-item";
+  const d = document.createElement("div");
+  d.className = "list-item";
 
-    const isFav = favorites.some(f => f.name === name);
-    const zikirObj = { name, meaning, isCustom };
+  const isFav = favorites.some(f => f.name === name);
+  const zikirObj = { name, meaning, isCustom };
 
-    // 👇 SOL TARAF (TIKLANAN ALAN)
-    const left = document.createElement("div");
-    left.style.flex = "1";
+  const left = document.createElement("div");
+  left.style.flex = "1";
+  left.innerHTML = `
+      <div style="font-weight:600">${name}</div>
+      <div style="font-size:10px; opacity:0.6">${meaning}</div>
+  `;
 
-    left.innerHTML = `
-        <div style="font-weight:600">${name}</div>
-        <div style="font-size:10px; opacity:0.6">${meaning}</div>
-    `;
+  left.addEventListener("click", () => {
+      selectZikir(name, meaning);
+  });
 
-    // 🔥 İŞTE SENİN SORDUĞUN YER BURASI
-    left.addEventListener("click", () => {
-        selectZikir(name, meaning);
-    });
+  const right = document.createElement("div");
+  right.style.display = "flex";
+  right.style.alignItems = "center";
 
-    // 👉 SAĞ TARAF
-    const right = document.createElement("div");
-    right.style.display = "flex";
-    right.style.alignItems = "center";
+  if (isCustom) {
+      const del = document.createElement("span");
+      del.innerText = "✕";
+      del.style.marginRight = "15px";
+      del.style.opacity = "0.3";
+      del.onclick = (e) => deleteCustom(e, customIndex);
+      right.appendChild(del);
+  }
 
-    if (isCustom) {
-        const del = document.createElement("span");
-        del.innerText = "✕";
-        del.style.marginRight = "15px";
-        del.style.opacity = "0.3";
-        del.onclick = (e) => deleteCustom(e, customIndex);
-        right.appendChild(del);
-    }
+  const fav = document.createElement("span");
+  fav.className = "fav-btn";
+  fav.innerText = isFav ? "♥" : "♡";
+  fav.onclick = (e) => toggleFav(e, zikirObj);
 
-    const fav = document.createElement("span");
-    fav.className = "fav-btn";
-    fav.innerText = isFav ? "♥" : "♡";
-    fav.onclick = (e) => toggleFav(e, zikirObj);
+  right.appendChild(fav);
+  d.appendChild(left);
+  d.appendChild(right);
 
-    right.appendChild(fav);
-
-    d.appendChild(left);
-    d.appendChild(right);
-
-    return d;
+  return d;
 }
 
 function render() {
@@ -594,26 +587,25 @@ function render() {
   const cList = document.getElementById("customList");
   cList.innerHTML = "";
   myCustomList.forEach((zikir, i) => {
-  cList.appendChild(createListItem(zikir.name, zikir.meaning, true, i));
-});
+    cList.appendChild(createListItem(zikir.name, zikir.meaning, true, i));
+  });
 }
 
 function addCustom() {
   const name = document.getElementById("customName").value.trim();
   const meaning = document.getElementById("customMeaning").value.trim();
 
-if(name && !myCustomList.some(z => z.name === name))
+  if(name && !myCustomList.some(z => z.name === name)) {
     myCustomList.push({
       name: name,
       meaning: meaning || "Özel zikir"
     });
-
     save();
     render();
-
-    document.getElementById("customName").value = "";
-    document.getElementById("customMeaning").value = "";
   }
+
+  document.getElementById("customName").value = "";
+  document.getElementById("customMeaning").value = "";
 }
 
 function deleteCustom(e, i) {
@@ -621,12 +613,15 @@ function deleteCustom(e, i) {
   const nameToRemove = myCustomList[i].name;
   myCustomList.splice(i, 1);
   favorites = favorites.filter(f => f.name !== nameToRemove);
-  save(); render();
+  save(); 
+  render();
 }
 
-render(); updateUI();  // Sayfa açıldığında kayıtlı temayı uygula
+// Başlangıç tetiklemeleri
+render(); 
+updateUI();
 setTheme(savedTheme);
-
 </script>
+
 </body>
 </html>
